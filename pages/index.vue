@@ -32,13 +32,14 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  layout:'default',
   components: {
     Logo
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
