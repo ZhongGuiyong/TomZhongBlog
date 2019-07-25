@@ -48,69 +48,69 @@
     </section>
 
     <!-- 前端工程师技能包 -->
-    <section class="section-3 section-gap" style="background-color: #fff;">
+    <section class="section-3 section-gap" style="background: #f9f9ff;">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="menu-content col-lg-7">
             <div class="title text-center">
               <h1 class="mb-10">前端工程师技能包</h1>
-              <p>嗯，下面就是我会的一点点东西！</p>
+              <p>嗯，下面就是我会的一点点东西！感觉自己会的挺少的，但是我会更努力的！</p>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-pie-chart"></span>
+              <font-awesome-icon icon="code" class="icon"/>
               <a href="#">
-                <h4>Web Design</h4>
+                <h4>前端技能</h4>
               </a>
-              <p>“It is not because things are difficult that we do not dare; it is because we do not dare that they are difficult.”</p>
+              <p>HTML5, CSS3, Javascript, jQuery, ES6, Webpack, Vue, Mini Program, AMP, PWA</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-laptop-phone"></span>
+              <font-awesome-icon icon="keyboard" class="icon"/>
               <a href="#">
-                <h4>Web Development</h4>
+                <h4>后端技能</h4>
               </a>
-              <p>If you are an entrepreneur, you know that your success cannot depend on the opinions of others. Like the wind, opinions.</p>
+              <p>Node, Express, Linux, Python, Git</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-camera"></span>
+              <font-awesome-icon icon="chart-bar" class="icon"/>
               <a href="#">
-                <h4>Photography</h4>
+                <h4>办公技能</h4>
               </a>
-              <p>Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills.</p>
+              <p>Word, Excel, PowerPoint, VBA</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-picture"></span>
+              <font-awesome-icon icon="gamepad" class="icon"/>
               <a href="#">
-                <h4>Clipping Path</h4>
+                <h4>兴趣爱好</h4>
               </a>
-              <p>Hypnosis quit smoking methods maintain caused quite a stir in the medical world over the last two decades. There is a lot of argument.</p>
+              <p>唱歌, 篮球, 游泳, 尤克里里，吉他, 看书</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-tablet"></span>
+              <font-awesome-icon icon="language" class="icon"/>
               <a href="#">
-                <h4>Apps Interface</h4>
+                <h4>语言技能</h4>
               </a>
-              <p>Do you sometimes have the feeling that you’re running into the same obstacles over and over again? Many of my conflicts.</p>
+              <p>粤语，英语，汉语，国语</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="single-services">
-              <span class="lnr lnr-rocket"></span>
+              <font-awesome-icon icon="comments" class="icon"/>
               <a href="#">
-                <h4>Graphic Design</h4>
+                <h4>交往技能</h4>
               </a>
-              <p>You’ve heard the expression, “Just believe it and it will come.” Well, technically, that is true, however, ‘believing’ is not just thinking that.</p>
+              <p>流畅阅读英文文档，有良好英文听说读写能力，金牛座的性格稍稍内向，但因为喜欢为人设身处地，比较容易交朋友，同时拥有团队意识，较容易融入团队，同时更好地进行工作的协助。</p>
             </div>
           </div>
         </div>
@@ -231,5 +231,46 @@ export default {
 .single-services {
   text-align: center;
   margin-top: 60px;
+}
+
+
+.single-services {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.single-services .icon {
+  font-size: 35px;
+  color: #222;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.single-services h4 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.single-services p {
+  max-width: 318px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.single-services:hover h4 {
+  color: #8490ff;
+}
+
+.single-services:hover .icon {
+  color: #8490ff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>
