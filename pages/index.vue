@@ -121,14 +121,11 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import Typed from 'typed.js'
 
 export default {
   layout: 'default',
-  components: {
-    Logo
-  },
+  components: {},
   mounted() {
     // 使用typed.js
     new Typed('#typed-carrer', {
