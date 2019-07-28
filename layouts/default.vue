@@ -871,4 +871,8 @@ th {
   background: -moz-linear-gradient(0deg, #8490ff 0%, #62bdfc 100%);
   background: -webkit-linear-gradient(0deg, #8490ff 0%, #62bdfc 100%);
 }
+
+.post-content-area {
+  background-color: #f9f9ff;
+}
 </style>
