@@ -5,15 +5,18 @@
     </div>
     <nuxt />
     <Footer />
+    <MobileNav />
   </div>
 </template>
 <script>
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
+import MobileNav from '~/components/MobileNav.vue'
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    MobileNav
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <header id="header">
-    <button type="button" id="mobile-nav-toggle">
+    <button type="button" id="mobile-nav-toggle" @click="showMobileNav" v-show="showNavBtn">
       <svg
         t="1563951849867"
         class="icon"
@@ -54,6 +54,11 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      showNavBtn: true
+    }
+  },
   mounted() {
     // 导航栏滑动阴影监听
     window.addEventListener(
@@ -81,6 +86,17 @@ export default {
       },
       false
     )
+  },
+  created() {
+    this.$bus.$on('showNavBtn', ()=>{
+      this.showNavBtn = true
+    })
+  },
+  methods: {
+    showMobileNav () {
+      this.$bus.$emit('showNav', 'showNav')
+      this.showNavBtn = false
+    }
   }
 }
 </script>
