@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="padding-bottom: 70px;">
+    <div style="padding-bottom: 70px;" id="header-wrapper">
       <Header />
     </div>
     <nuxt />
