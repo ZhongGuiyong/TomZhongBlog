@@ -1,7 +1,24 @@
 <template>
-  <div class="mobile-nav-container">
+  <div class="mobile-nav-container" @click="hideNav">
     <div id="mobile-body-overly" v-show="showNav">
-      <button id="mobile-nav-toggle" @click="hideNav"><svg t="1564370662673" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1984" width="24" height="24"><path d="M583.168 523.776L958.464 148.48c18.944-18.944 18.944-50.176 0-69.12l-2.048-2.048c-18.944-18.944-50.176-18.944-69.12 0L512 453.12 136.704 77.312c-18.944-18.944-50.176-18.944-69.12 0l-2.048 2.048c-19.456 18.944-19.456 50.176 0 69.12l375.296 375.296L65.536 899.072c-18.944 18.944-18.944 50.176 0 69.12l2.048 2.048c18.944 18.944 50.176 18.944 69.12 0L512 594.944 887.296 970.24c18.944 18.944 50.176 18.944 69.12 0l2.048-2.048c18.944-18.944 18.944-50.176 0-69.12L583.168 523.776z" p-id="1985" fill="#777777"></path></svg></button>
+      <button id="mobile-nav-toggle" @click="hideNav">
+        <svg
+          t="1564370662673"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="1984"
+          width="24"
+          height="24"
+        >
+          <path
+            d="M583.168 523.776L958.464 148.48c18.944-18.944 18.944-50.176 0-69.12l-2.048-2.048c-18.944-18.944-50.176-18.944-69.12 0L512 453.12 136.704 77.312c-18.944-18.944-50.176-18.944-69.12 0l-2.048 2.048c-19.456 18.944-19.456 50.176 0 69.12l375.296 375.296L65.536 899.072c-18.944 18.944-18.944 50.176 0 69.12l2.048 2.048c18.944 18.944 50.176 18.944 69.12 0L512 594.944 887.296 970.24c18.944 18.944 50.176 18.944 69.12 0l2.048-2.048c18.944-18.944 18.944-50.176 0-69.12L583.168 523.776z"
+            p-id="1985"
+            fill="#777777"
+          />
+        </svg>
+      </button>
     </div>
     <nav id="mobile-nav" :style="navBar">
       <ul class="nav-menu">
@@ -67,15 +84,38 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.$bus.$on('showNav', () => {
+      this.ModalHelper.afterOpen()
       this.showNav = true
       this.navBar.left = 0
     })
-    
+
+    /**
+     * ModalHelper helpers resolve the modal scrolling issue on mobile devices
+     * https://github.com/twbs/bootstrap/issues/15852
+     * requires document.scrollingElement polyfill https://github.com/yangg/scrolling-element
+     */
+    // 预留接口防止后面导航栏菜单需要滚动的时候无法滚动。
+    this.ModalHelper = (function(bodyCls) {
+      var scrollTop
+      return {
+        afterOpen: function() {
+          scrollTop = document.scrollingElement.scrollTop
+          document.body.classList.add(bodyCls)
+          // document.body.style.top = -scrollTop + 'px'
+        },
+        beforeClose: function() {
+          document.body.classList.remove(bodyCls)
+          // scrollTop lost after set position:fixed, restore it back.
+          // document.scrollingElement.scrollTop = scrollTop
+        }
+      }
+    })('modal-open')
   },
   methods: {
-    hideNav () {
+    hideNav() {
+      this.ModalHelper.beforeClose()
       this.navBar.left = '-260px'
       this.showNav = false
       this.$bus.$emit('showNavBtn', 'showNavBtn')
@@ -213,6 +253,31 @@ body.mobile-nav-active #mobile-nav {
 
 body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
+}
+
+body.modal-open {
+  position: fixed;
+  width: 100%;
+}
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: none;
+}
+.modal-frame {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: solid 1px #ddd;
+  background: #fff;
+  padding: 1em;
 }
 </style>
 
