@@ -3,8 +3,8 @@
     class="text-center d-flex justify-content-center align-items-center pt-100 pb-100"
     style="height: 100vh"
   >
-    <form class="form-signin">
-      <img class="mb-4" src="/img/logo.png" alt width="72" />
+    <form class="form-signin" @submit.prevent="login">
+      <img class="mb-4" src="/img/logo.png" alt width="72"/> 
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         type="email"
@@ -13,6 +13,7 @@
         placeholder="Email address"
         required
         autofocus
+        v-model="formData.email"
       />
       <label for="inputPassword" class="sr-only">Password</label>
       <input
@@ -21,6 +22,7 @@
         class="form-control"
         placeholder="Password"
         required
+        v-model="formData.pwd"
       />
       <div class="checkbox mb-3">
         <label>
@@ -33,9 +35,39 @@
   </div>
 </template>
 <script>
-export default {}
+const Cookie = process.client ? require('js-cookie') : undefined
+export default {
+  data() {
+      return {
+        formData: {
+          email: '',
+          pwd: ''
+        }
+      }
+  },
+  middleware: 'notAuthenticated',
+  methods: {
+    
+    // 登录
+    async login() {
+      const user = 'http://localhost:3000/v1/user/login'
+      try {
+        const res = await this.$axios.$post(user, this.formData)
+        // console.log(res)
+        this.$store.commit('setAuth', res.token)
+        Cookie.set('auth', res.token)
+        this.$router.push('/dashboard')
+        // this.$axios.setToken(res.token, 'Bearer', ['post', 'get'])
+        // const data = await this.$axios.$get('http://localhost:3000/v1/user')
+        // console.log(data)
+      } catch (error) {
+        console.log(error.response)
+      }
+    }
+  }
+}
 </script>
-<style>
+<style scoped>
 .form-signin {
   width: 100%;
   max-width: 330px;
