@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form @submit.stop.prevent @reset="onReset" v-if="show">
         <b-form-group id="input-group-1" label="文章标题" label-for="input-1" description="请输入您的文章标题">
           <b-form-input id="input-1" v-model="form.title" type="text" placeholder="文章标题"></b-form-input>
         </b-form-group>
@@ -22,7 +22,7 @@
                 <span data-role="remove" @click="deleteKeys(key)">删除</span>
               </span>
             </div>
-            <b-form-input id="input-2" v-model="tag" placeholder="标签" @keyup.enter="dealTag"></b-form-input>
+            <b-form-input id="input-2" v-model="tag" placeholder="标签" @keydown.enter="dealTag"></b-form-input>
           </div>
         </b-form-group>
 
@@ -33,7 +33,7 @@
         </b-form-group>
 
         <div class="mt-3">
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="submit" variant="primary" @click="onSubmit">提交</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </div>
       </b-form>
@@ -79,7 +79,7 @@ export default {
   methods: {
     async onSubmit(evt) {
       evt.preventDefault()
-      alert(JSON.stringify(this.form))
+      // alert(JSON.stringify(this.form))
       const token = Cookie.get('auth')
       this.$axios.setToken(token, 'Bearer', ['post', 'get'])
       const res = this.$axios.$post('http://localhost:3000/v1/article', this.form)
@@ -100,9 +100,14 @@ export default {
       })
     },
     dealTag(evt) {
+      // if (this.tag === '') {
+      //   return
+      // }
+      evt.preventDefault()
       console.log(this.tag)
       this.form.tags.push(this.tag)
       this.tag = ''
+      return false
     },
     deleteKeys(index) {
       this.form.tags.splice(index, 1)
