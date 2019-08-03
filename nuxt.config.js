@@ -30,7 +30,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/fontawesome.js' },
-    { src: '~/plugins/eventBus.js'}
+    { src: '~/plugins/eventBus.js'},
+    { src: '@/plugins/vue-mavon-editor.js', ssr: false }
   ],
   /*
   ** Nuxt.js modules

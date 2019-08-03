@@ -1,9 +1,18 @@
 <template>
-  <div>
+  <div class="app-body">
     <div v-if="$store.state.auth">
-      <p>You are authenticated. You can see the</p>
+      <!-- <p>You are authenticated. You can see the</p>
       <button @click="logout">Logout</button>
-      <button @click="getUserData">拿取用户数据</button>
+      <button @click="getUserData">拿取用户数据</button> -->
+      <!-- <markdownEditor/> -->
+      <div class="sider-bar">
+        <DashboardSiderBar/>
+      </div>
+      <div class="app-main" style="padding-left: 280px;" ref="app">
+        <div style="padding: 30px 30px;flex: 1;">
+          <nuxt-child/>
+        </div>
+      </div>
     </div>
     <p v-else>
       Please
@@ -14,9 +23,12 @@
 
 <script>
 const Cookie = process.client ? require('js-cookie') : undefined
-
+import DashboardSiderBar from '~/components/dashboardSiderBar'
 export default {
   middleware: 'authenticated',
+  components: {
+    DashboardSiderBar
+  },
   methods: {
     // 退出登录
     logout() {
@@ -38,6 +50,17 @@ export default {
         console.log(error.response)
       }
     }
+  },
+  mounted(){
+    let viewportHeight = document.body.clientHeight || document.documentElement.clientHeight
+    // console.log(viewportHeight)
+    this.$refs.app.style.minHeight = viewportHeight - 70 + 'px'
   }
 }
 </script>
+<style>
+.app-body {
+  background: #f1f4f6;
+}
+</style>
+

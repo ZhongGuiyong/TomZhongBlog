@@ -27,7 +27,7 @@
       <div class="row align-items-center justify-content-between d-flex">
         <div id="logo">
           <a href="/">
-            <img src="img/logo.png" alt title style="height:30px;"/>
+            <img src="/img/logo.png" alt title style="height:30px;"/>
           </a>
         </div>
         <nav id="nav-menu-container">
