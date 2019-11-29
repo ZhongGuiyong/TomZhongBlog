@@ -360,7 +360,10 @@
 </template>
 <script>
 export default {
-  layout: 'default'
+  layout: 'default',
+  async fetch ({ store, params }) {
+    await store.dispatch('nav/getNav');
+  },
 }
 </script>
 <style>

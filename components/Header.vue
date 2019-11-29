@@ -32,17 +32,8 @@
         </div>
         <nav id="nav-menu-container">
           <ul class="nav-menu">
-            <li>
-              <a href="/index.html">首页</a>
-            </li>
-            <li>
-              <a href="/about.html">博客</a>
-            </li>
-            <li>
-              <a href="/portfolio.html">生活照片</a>
-            </li>
-            <li>
-              <a href="/contact.html">联系我</a>
+            <li v-for="(item, index) in nav" :key="index">  
+              <a :href="item.url">{{ item.name }}</a>
             </li>
           </ul>
         </nav>
@@ -53,11 +44,17 @@
   <!-- #header -->
 </template>
 <script>
+import { mapState  } from 'vuex';
 export default {
   data() {
     return {
       showNavBtn: true
     }
+  },
+  computed:{
+    ...mapState({
+      nav: state => state.nav.nav,
+    })
   },
   mounted() {
     // 导航栏滑动阴影监听
