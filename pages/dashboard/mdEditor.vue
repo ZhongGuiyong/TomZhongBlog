@@ -2,34 +2,16 @@
   <div>
     <div>
       <b-form @submit.stop.prevent @reset="onReset" v-if="show">
-        <b-form-group
-          id="input-group-1"
-          label="文章标题"
-          label-for="input-1"
-          description="请输入您的文章标题"
-        >
-          <b-form-input
-            id="input-1"
-            v-model="form.title"
-            type="text"
-            placeholder="文章标题"
-          ></b-form-input>
+        <b-form-group id="input-group-1" label="文章标题" label-for="input-1" description="请输入您的文章标题">
+          <b-form-input id="input-1" v-model="form.title" type="text" placeholder="文章标题"></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="文章描述" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            v-model="form.desc"
-            placeholder="文章描述"
-          ></b-form-input>
+          <b-form-input id="input-2" v-model="form.desc" placeholder="文章描述"></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-3" label="文章类型" label-for="input-3">
-          <b-form-select
-            id="input-3"
-            v-model="form.type"
-            :options="type"
-          ></b-form-select>
+          <b-form-select id="input-3" v-model="form.type" :options="type"></b-form-select>
         </b-form-group>
 
         <b-form-group label="输入你想要的标签" label-for="input-3">
@@ -41,7 +23,7 @@
               </span>
             </div>
             <b-form-input id="input-2" v-model="tag" placeholder="标签" @keydown.enter="dealTag"></b-form-input>
-          </div> -->
+          </div>-->
           <no-ssr>
             <vue-tags-input
               v-model="tag"
@@ -58,28 +40,22 @@
             v-model="form.content"
             :config="editorConfig"
           ></ckeditor>
-        </client-only> -->
+        </client-only>-->
         <div class="hello">
           <vue-ueditor-wrap
             v-model="form.content"
             :config="config"
             @ready="ready"
+            @beforeInit="addCustomUI"
           />
           <div class="preview" @click="showData" v-html="form.content" />
         </div>
         <b-form-group id="input-group-4" class="mt-3">
-          <b-form-checkbox
-            id="checkbox-1"
-            v-model="form.publish_status"
-            name="checkbox-1"
-            >确认发布</b-form-checkbox
-          >
+          <b-form-checkbox id="checkbox-1" v-model="form.publish_status" name="checkbox-1">确认发布</b-form-checkbox>
         </b-form-group>
 
         <div class="mt-3">
-          <b-button type="submit" variant="primary" @click="onSubmit"
-            >提交</b-button
-          >
+          <b-button type="submit" variant="primary" @click="onSubmit">提交</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </div>
       </b-form>
@@ -200,6 +176,94 @@ export default {
     showData() {
       // console.log(this.msg)
     },
+
+    // 7. 借助 beforeInit 钩子，你可以实现对 UEditor 的二次开发，会在 scripts 加载完毕之后、编辑器初始化之前触发，以 编辑器 id 和 配置参数 作为入参
+    addCustomUI(editorId, editorConfig) {
+      console.log(
+        editorId + '的配置参数是:',
+        JSON.stringify(editorConfig, null, 2)
+      )
+
+      // 1. 自定义按钮
+      window.UE.registerUI(
+        'upload-button' + editorId,
+        function(editor, uiName) {
+          // 注册按钮执行时的 command 命令，使用命令默认就会带有回退操作
+          editor.registerCommand(uiName, {
+            execCommand: function() {
+              editor.execCommand(
+                'inserthtml',
+                `<span style="color: #${editorId.substr(
+                  -3
+                )};">这是一段由自定义按钮添加的文字，你点击的编辑器ID是${editorId}</span>`
+              )
+            }
+          })
+          const timestrap = (+new Date()).toString(36)
+          var w = 20,
+            h = 20,
+            btnStyle =
+              'display:none;width:' +
+              w +
+              'px;height:' +
+              h +
+              'px;overflow:hidden;border:0;margin:0;padding:0;position:absolute;top:0;left:0;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity: 0;opacity: 0;cursor:pointer;'
+          var form = document.createElement('form')
+          var input = document.createElement('input')
+          form.id = 'edui_form_' + timestrap
+          form.enctype = 'multipart/form-data'
+          form.style = btnStyle
+          input.id = 'edui_input_' + timestrap
+          input.type = 'file'
+          input.accept = 'image/*'
+          input.name = 'image-upload'
+          input.style = btnStyle
+
+          form.appendChild(input)
+          documment.appendChild(form);
+          // 创建一个 button
+          var btn = new window.UE.ui.Button({
+            // 按钮的名字
+            name: uiName,
+            // 提示
+            title: '添加图片',
+            // 需要添加的额外样式，可指定 icon 图标，图标路径参考常见问题 2
+            cssRules: `background-image: url('${process.env.BASE_URL}upload.jpg') !important;background-size: cover;`,
+            // 点击时执行的命令
+            onclick: function() {
+              // 这里可以不用执行命令，做你自己的操作也可
+              console.log('打开文件候选框')
+              $("#file").trigger("click");  
+              // editor.execCommand(uiName)
+            }
+          })
+          console.log(btn);
+          // btn.appendChild(form)
+
+          input.addEventListener('change', function(event) {
+            if (!input.value) return
+          })
+
+          // 当点到编辑内容上时，按钮要做的状态反射
+          editor.addListener('selectionchange', function() {
+            var state = editor.queryCommandState(uiName)
+            if (state === -1) {
+              btn.setDisabled(true)
+              btn.setChecked(false)
+
+            } else {
+              btn.setDisabled(false)
+              btn.setChecked(state)
+            }
+          })
+
+          // 因为你是添加 button，所以需要返回这个 button
+          return btn
+        },
+        0 /* 指定添加到工具栏上的哪个位置，默认时追加到最后 */,
+        editorId /* 指定这个 UI 是哪个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮 */
+      )
+    }
   }
 }
 </script>

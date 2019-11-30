@@ -25,7 +25,7 @@
 const Cookie = process.client ? require('js-cookie') : undefined
 import DashboardSiderBar from '~/components/dashboardSiderBar'
 export default {
-  middleware: 'authenticated',
+  // middleware: 'authenticated',
   components: {
     DashboardSiderBar
   },
