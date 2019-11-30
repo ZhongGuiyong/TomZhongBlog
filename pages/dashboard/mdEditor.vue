@@ -179,6 +179,7 @@ export default {
 
     // 7. 借助 beforeInit 钩子，你可以实现对 UEditor 的二次开发，会在 scripts 加载完毕之后、编辑器初始化之前触发，以 编辑器 id 和 配置参数 作为入参
     addCustomUI(editorId, editorConfig) {
+      const _that = this
       console.log(
         editorId + '的配置参数是:',
         JSON.stringify(editorConfig, null, 2)
@@ -191,12 +192,7 @@ export default {
           // 注册按钮执行时的 command 命令，使用命令默认就会带有回退操作
           editor.registerCommand(uiName, {
             execCommand: function() {
-              editor.execCommand(
-                'inserthtml',
-                `<span style="color: #${editorId.substr(
-                  -3
-                )};">这是一段由自定义按钮添加的文字，你点击的编辑器ID是${editorId}</span>`
-              )
+             
             }
           })
           const timestrap = (+new Date()).toString(36)
@@ -220,7 +216,7 @@ export default {
           input.style = btnStyle
 
           form.appendChild(input)
-          documment.appendChild(form);
+          // document.appendChild(form);
           // 创建一个 button
           var btn = new window.UE.ui.Button({
             // 按钮的名字
@@ -233,15 +229,27 @@ export default {
             onclick: function() {
               // 这里可以不用执行命令，做你自己的操作也可
               console.log('打开文件候选框')
-              $("#file").trigger("click");  
+              input.click();
               // editor.execCommand(uiName)
             }
           })
           console.log(btn);
           // btn.appendChild(form)
 
-          input.addEventListener('change', function(event) {
+          input.addEventListener('change', async function (event) {
             if (!input.value) return
+            const file = this.files[0];
+            console.log(file);
+            console.log(_that.$upload);
+            const tokenQuery = '/api/uptoken'
+            const { uptoken } = await _that.$axios.$get(tokenQuery)
+            const { url } = await _that.$upload(file, uptoken);
+            // this.$upload(file);
+             editor.execCommand(
+                'inserthtml',
+                `<img src="${url}"/>`
+              )
+            // await upload(file)
           })
 
           // 当点到编辑内容上时，按钮要做的状态反射

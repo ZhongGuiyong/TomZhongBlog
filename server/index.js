@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+import qiniu from 'qiniu'
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
@@ -14,7 +17,17 @@ import v1 from '../api'
 // const config = require('../nuxt.config.js')
 import config from '../nuxt.config'
 config.dev = !(process.env.NODE_ENV === 'production')
-
+console.log(__dirname);
+const baseConfig=JSON.parse(fs.readFileSync(path.resolve(__dirname,"../config.json")))
+var mac = new qiniu.auth.digest.Mac(baseConfig.AccessKey, baseConfig.SecretKey)
+console.log(mac);
+const options = {
+  scope: baseConfig.Bucket,
+  deleteAfterDays: 1,
+  returnBody:
+    '{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)", "url": "' + baseConfig.Domain + '/$(key)"}',
+};
+const putPolicy = new qiniu.rs.PutPolicy(options);
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
@@ -29,6 +42,8 @@ async function start() {
     await nuxt.ready()
   }
   const mongodbInstance = await mongodbInitialize();
+
+  
   app.use(bodyParser.urlencoded({ extended: false }))
   // console.log(mongodbInstance);
   app.use(bodyParser.json())
@@ -48,6 +63,20 @@ async function start() {
   }))
   app.use(cors)
   app.use(v1)
+  app.get("/api/uptoken", function(req, res, next) {
+    var token = putPolicy.uploadToken(mac);
+    // console.log(token);
+    res.header("Cache-Control", "max-age=0, private, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+    // console.log(token );
+    if (token) {
+      res.json({
+        uptoken: token,
+        domain: baseConfig.Domain
+      });
+    }
+  });
   // Give nuxt middleware to express
   app.use(nuxt.render)
   

@@ -49,6 +49,7 @@ export default {
     { src: '~/plugins/eventBus.js' },
     { src: '@/plugins/mixin.js' },
     { src: '~/plugins/vue-tags-input', ssr: false },
+    { src: '~/plugins/upload', ssr: false },
   ],
   /*
    ** Nuxt.js modules
