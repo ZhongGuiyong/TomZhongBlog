@@ -7,8 +7,8 @@ const app = express()
 // import LoginRouter from '../api'
 
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-// import config from '../nuxt.config'
+// const config = require('../nuxt.config.js')
+import config from '../nuxt.config'
 config.dev = !(process.env.NODE_ENV === 'production')
 
 async function start() {
