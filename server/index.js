@@ -4,6 +4,8 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 import bodyParser from 'body-parser'
 import session from 'express-session';
+import cors from '../plugins/serverPlugins/cors'
+import mongodbInitialize from '../plugins/serverPlugins/mongodb'
 import v1 from '../api'
 
 // Import and Set Nuxt.js options
@@ -24,6 +26,7 @@ async function start() {
   } else {
     await nuxt.ready()
   }
+  await mongodbInitialize();
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
   // app.use(function (req, res) {
@@ -37,6 +40,7 @@ async function start() {
     saveUninitialized: false,
     cookie: { maxAge: 60000 }
   }))
+  app.use(cors)
   app.use(v1)
   // Give nuxt middleware to express
   app.use(nuxt.render)
