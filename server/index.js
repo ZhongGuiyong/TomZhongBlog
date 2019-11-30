@@ -2,9 +2,9 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-// import bodyParser from 'body-parser'
-// import session from 'express-session';
-// import LoginRouter from '../api'
+import bodyParser from 'body-parser'
+import session from 'express-session';
+import v1 from '../api'
 
 // Import and Set Nuxt.js options
 // const config = require('../nuxt.config.js')
@@ -24,22 +24,23 @@ async function start() {
   } else {
     await nuxt.ready()
   }
-  // await app.use(bodyParser.urlencoded({ extended: false }))
-  // await app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.json())
   // app.use(function (req, res) {
   //   res.setHeader('Content-Type', 'text/plain')
   //   res.write('you posted:\n')
   //   res.end(JSON.stringify(req.body, null, 2))
   // })
-  // await app.use(session({
-  //   secret: 'super-secret-key',
-  //   resave: false,
-  //   saveUninitialized: false,
-  //   cookie: { maxAge: 60000 }
-  // }))
+  app.use(session({
+    secret: 'super-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 60000 }
+  }))
+  app.use(v1)
   // Give nuxt middleware to express
   app.use(nuxt.render)
-  // app.use(LoginRouter)
+  
   // Listen the server
   app.listen(port, host)
   consola.ready({
