@@ -50,16 +50,15 @@ export default {
     
     // 登录
     async login() {
-      const user = 'http://localhost:3000/v1/user/login'
+      const user = '/v1/user/login'
       try {
         const res = await this.$axios.$post(user, this.formData)
         // console.log(res)
-        this.$store.commit('auth/setAuth', res.token)
-        Cookie.set('auth', res.token)
-        this.$router.push('/dashboard')
-        // this.$axios.setToken(res.token, 'Bearer', ['post', 'get'])
-        // const data = await this.$axios.$get('http://localhost:3000/v1/user')
-        // console.log(data)
+        console.log(res);
+        if (res.status === 'ok') {
+          console.log('登录成功');
+          window.location = window.location.origin + '/dashboard';
+        }
       } catch (error) {
         console.log(error.response)
       }
