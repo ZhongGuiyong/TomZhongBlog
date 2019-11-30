@@ -63,7 +63,6 @@
           <vue-ueditor-wrap
             v-model="form.content"
             :config="config"
-            :key="ueditor"
             @ready="ready"
           />
           <div class="preview" @click="showData" v-html="form.content" />
@@ -93,12 +92,6 @@
 </template>
 
 <script>
-// import markdownEditor from '~/components/markdownEditor'
-
-// let ClassicEditor
-// if (process.browser) {
-//   ClassicEditor = require('@ckeditor/ckeditor5-build-decoupled-document')
-// }
 import VueUeditorWrap from 'vue-ueditor-wrap' // ES6 Module
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
@@ -156,8 +149,6 @@ export default {
   mounted() {},
   destroyed() {},
   components: {
-    // // markdownEditor,
-    // ClassicEditor,
     VueUeditorWrap
   },
   methods: {

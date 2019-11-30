@@ -47,10 +47,8 @@ export default {
   plugins: [
     { src: '~/plugins/fontawesome.js' },
     { src: '~/plugins/eventBus.js' },
-    { src: '@/plugins/vue-mavon-editor.js', ssr: false },
     { src: '@/plugins/mixin.js' },
     { src: '~/plugins/vue-tags-input', ssr: false },
-    { src: '~/plugins/ckeditor', ssr: false }
   ],
   /*
    ** Nuxt.js modules
