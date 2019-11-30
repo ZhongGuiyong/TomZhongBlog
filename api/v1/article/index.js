@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import mongoose from 'mongoose'
 import Article from '../../../models/article'
-// import checkAuth from '../../../plugin/check-auth'
+import checkAuth from '../../../plugins/serverPlugins/checkAuth'
 const article = Router()
 
 // article.get('/', function (req, res, next) {
@@ -35,7 +35,7 @@ article.get('/', function (req, res) {
 })
 article.get('/:id', function (req, res, next) {
   let id = req.params.id
-  console.log(id)
+  // console.log(id)
   Article
     .findById(id)
     .populate('author fans')
@@ -55,43 +55,43 @@ article.get('/:id', function (req, res, next) {
       })
     })
 })
-// article.post('/', checkAuth, function (req, res, next) {
-//   let author = req.body.author ? req.body.author : ''
-//   let title = req.body.title ? req.body.title : ''
-//   let content = req.body.content ? req.body.content : ''
-//   let fans = req.body.fans ? JSON.parse(req.body.fans) : []
-//   let desc = req.body.desc ? req.body.desc : ''
-//   let mdContent = req.body.mdContent ? req.body.mdContent : ''
-//   let parseContent = req.body.parseContent ? req.body.parseContent : ''
-//   let tags = req.body.tags ? req.body.tags : []
-//   let type = req.body.type ? req.body.type : ''
-//   const article = new Article({
-//     _id: new mongoose.Types.ObjectId(),
-//     author: author,
-//     title: title,
-//     content: content,
-//     fans: fans,
-//     desc: desc,
-//     mdContent: mdContent,
-//     parseContent: parseContent,
-//     type: type,
-//     tags: tags
-//   })
-//   console.log(article)
-//   // res.end(200)
-//   article.save().then(result => {
-//     // console.log(result)
-//     res.status(201).json({
-//       message: 'Handling Create Article',
-//       createArticle: result
-//     })
-//   }).catch(err => {
-//     // console.log(err)
-//     res.status(500).json({
-//       error: err
-//     })
-//   })
-// })
+article.post('/', checkAuth, function (req, res, next) {
+  let author = req.body.author ? req.body.author : ''
+  let title = req.body.title ? req.body.title : ''
+  let content = req.body.content ? req.body.content : ''
+  let fans = req.body.fans ? JSON.parse(req.body.fans) : []
+  let desc = req.body.desc ? req.body.desc : ''
+  let mdContent = req.body.mdContent ? req.body.mdContent : ''
+  let parseContent = req.body.parseContent ? req.body.parseContent : ''
+  let tags = req.body.tags ? req.body.tags : []
+  let type = req.body.type ? req.body.type : ''
+  const article = new Article({
+    _id: new mongoose.Types.ObjectId(),
+    author: author,
+    title: title,
+    content: content,
+    fans: fans,
+    desc: desc,
+    mdContent: mdContent,
+    parseContent: parseContent,
+    type: type,
+    tags: tags
+  })
+  console.log(article)
+  // res.end(200)
+  article.save().then(result => {
+    // console.log(result)
+    res.status(201).json({
+      message: 'Handling Create Article',
+      createArticle: result
+    })
+  }).catch(err => {
+    // console.log(err)
+    res.status(500).json({
+      error: err
+    })
+  })
+})
 article.put('/:id', function (req, res, next) {
   const id = req.params.id
   const updateObj = {

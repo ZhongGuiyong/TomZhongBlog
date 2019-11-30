@@ -15,7 +15,7 @@
         </b-form-group>
 
         <b-form-group label="输入你想要的标签" label-for="input-3">
-          <div>
+          <!-- <div>
             <div v-for="(item, key) in form.tags" :key="key">
               <span class="tag label label-info">
                 {{item}}
@@ -23,7 +23,14 @@
               </span>
             </div>
             <b-form-input id="input-2" v-model="tag" placeholder="标签" @keydown.enter="dealTag"></b-form-input>
-          </div>
+          </div> -->
+          <no-ssr>
+            <vue-tags-input
+              v-model="tag"
+              :tags="form.tags"
+              @tags-changed="newTags => form.tags = newTags"
+            />
+          </no-ssr>
         </b-form-group>
 
         <markdownEditor @getvalue="getValue" />
@@ -80,9 +87,10 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault()
       // alert(JSON.stringify(this.form))
+      this.form.tags = this.form.tags.map((item) => item.text || '');
       const token = Cookie.get('auth')
       this.$axios.setToken(token, 'Bearer', ['post', 'get'])
-      const res = this.$axios.$post('http://localhost:3000/v1/article', this.form)
+      const res = this.$axios.$post('/v1/article', this.form)
       console.log(res)
       return false
     },

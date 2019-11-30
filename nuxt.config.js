@@ -34,7 +34,8 @@ export default {
     { src: '~/plugins/fontawesome.js' },
     { src: '~/plugins/eventBus.js'},
     { src: '@/plugins/vue-mavon-editor.js', ssr: false },
-    { src: '@/plugins/mixin.js' }
+    { src: '@/plugins/mixin.js' },
+    { src: '~/plugins/vue-tags-input', ssr: false },
   ],
   /*
   ** Nuxt.js modules

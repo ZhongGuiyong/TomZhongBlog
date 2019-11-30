@@ -127,7 +127,7 @@ user.post('/login', async function(req, res, next) {
     // console.log(compareResult);
     if (compareResult) {
       const { role, name, age, email, nickname, user_profile_photo } = (userInfo && userInfo[0]) || {}
-      req.session.authUser = { name, email }
+      req.session.authUser = { name, email, role }
       return res.status(200).json({
         message: 'Auth successful',
         status: 'ok',
