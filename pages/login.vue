@@ -54,7 +54,7 @@ export default {
       try {
         const res = await this.$axios.$post(user, this.formData)
         // console.log(res)
-        this.$store.commit('setAuth', res.token)
+        this.$store.commit('auth/setAuth', res.token)
         Cookie.set('auth', res.token)
         this.$router.push('/dashboard')
         // this.$axios.setToken(res.token, 'Bearer', ['post', 'get'])

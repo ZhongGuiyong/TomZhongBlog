@@ -33,7 +33,7 @@ export default {
     // 退出登录
     logout() {
       Cookie.remove('auth')
-      this.$store.commit('setAuth', null)
+      this.$store.commit('nav/setAuth', null)
       this.$router.push('/login')
     },
 

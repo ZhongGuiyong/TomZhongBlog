@@ -125,9 +125,6 @@ import Typed from 'typed.js'
 import { indexPage } from '../seo/index';
 export default {
   layout: 'default',
-  async fetch ({ store, params }) {
-    await store.dispatch('nav/getNav');
-  },
   components: {},
   ...indexPage,
   mounted() {
