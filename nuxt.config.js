@@ -1,3 +1,5 @@
+const BASE_URL = process.env.DEPLOY_ENV === 'GH_PAGES' ? `/` : '/'
+const webpack = require('webpack')
 export default {
   mode: 'universal',
   /*
@@ -72,6 +74,13 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          BASE_URL: JSON.stringify(BASE_URL)
+        }
+      })
+    ]
   }
 }

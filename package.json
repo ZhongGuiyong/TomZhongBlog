@@ -37,7 +37,8 @@
     "mavon-editor": "^2.7.5",
     "mongoose": "^5.7.13",
     "nuxt": "^2.0.0",
-    "typed.js": "^2.0.10"
+    "typed.js": "^2.0.10",
+    "vue-ueditor-wrap": "^2.4.1"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.7.0",

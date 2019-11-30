@@ -51,14 +51,23 @@
           </no-ssr>
         </b-form-group>
 
-        <!-- <markdownEditor @getvalue="getValue" /> -->
+        <!-- <markdownEditor @getvalue="getValue" />
         <client-only>
           <ckeditor
             :editor="editor"
             v-model="form.content"
             :config="editorConfig"
           ></ckeditor>
-        </client-only>
+        </client-only> -->
+        <div class="hello">
+          <vue-ueditor-wrap
+            v-model="form.content"
+            :config="config"
+            :key="ueditor"
+            @ready="ready"
+          />
+          <div class="preview" @click="showData" v-html="form.content" />
+        </div>
         <b-form-group id="input-group-4" class="mt-3">
           <b-form-checkbox
             id="checkbox-1"
@@ -86,10 +95,11 @@
 <script>
 // import markdownEditor from '~/components/markdownEditor'
 
-let ClassicEditor
-if (process.browser) {
-  ClassicEditor = require('@ckeditor/ckeditor5-build-decoupled-document')
-}
+// let ClassicEditor
+// if (process.browser) {
+//   ClassicEditor = require('@ckeditor/ckeditor5-build-decoupled-document')
+// }
+import VueUeditorWrap from 'vue-ueditor-wrap' // ES6 Module
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
@@ -115,20 +125,40 @@ export default {
 
       show: true,
 
-      editor: ClassicEditor || null,
-      editorData: '',
-      editorConfig: {
-        // The configuration of the editor.
-      },
+      // editor: ClassicEditor || null,
+      // editorData: '',
+      // editorConfig: {
+      //   // The configuration of the editor.
+      // }
+      msg:
+        '<h2><img src="http://img.baidu.com/hi/jx2/j_0003.gif"/>Vue + UEditor + v-model双向绑定</h2>',
+      // 4、根据项目需求自行配置,具体配置参见ueditor.config.js源码或 http://fex.baidu.com/ueditor/#start-start
+      config: {
+        // 编辑器不自动被内容撑高
+        autoHeightEnabled: false,
+        // 初始容器高度
+        initialFrameHeight: 240,
+        // 初始容器宽度
+        initialFrameWidth: '100%',
+        // 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
+        serverUrl: 'http://35.201.165.105:8000/controller.php',
+        // UEditor 资源文件的存放路径，通常Nuxt项目设置为/UEditor/即可，但是由于这个演示项目需要部署至GitHub Pages，需要区分构建情景
+        // 这里的process.env.BASE_URL是通过cross-env和webpack.DefinePlugin定义的，具体查看 package.json中的scripts和nuxt.config.js
+        // 如果你的项目像 GitHub Pages 这样，不是在网站根目录下，可以借鉴这种做法，参考链接 https://zh.nuxtjs.org/faq/github-pages
+        UEDITOR_HOME_URL: `${process.env.BASE_URL}UEditor/`
+        // 配合最新编译的资源文件，你可以实现添加自定义Request Headers,详情https://github.com/HaoChuan9421/ueditor/commits/dev-1.4.3.3
+        // headers: {
+        //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
+        // }
+      }
     }
   },
-  mounted() {
-  },
-  destroyed() {
-  },
+  mounted() {},
+  destroyed() {},
   components: {
-    // // markdownEditor
-    // ClassicEditor
+    // // markdownEditor,
+    // ClassicEditor,
+    VueUeditorWrap
   },
   methods: {
     async onSubmit(evt) {
@@ -138,7 +168,7 @@ export default {
       const token = Cookie.get('auth')
       this.$axios.setToken(token, 'Bearer', ['post', 'get'])
       const res = this.$axios.$post('/v1/article', this.form)
-      console.log(res)
+      // console.log(res)
       return false
     },
     onReset(evt) {
@@ -159,7 +189,7 @@ export default {
       //   return
       // }
       evt.preventDefault()
-      console.log(this.tag)
+      // console.log(this.tag)
       this.form.tags.push(this.tag)
       this.tag = ''
       return false
@@ -168,10 +198,16 @@ export default {
       this.form.tags.splice(index, 1)
     },
     getValue(payload) {
-      console.log(payload.render)
+      // console.log(payload.render)
       this.form.mdContent = payload.val
       this.form.parseContent = payload.render
       this.form.content = payload.render
+    },
+    ready(editorInstance) {
+      // console.log(`实例${editorInstance.key}已经初始化:`, editorInstance)
+    },
+    showData() {
+      // console.log(this.msg)
     },
   }
 }
@@ -200,5 +236,8 @@ export default {
 }
 .label-info {
   background-color: #5bc0de;
+}
+.preview {
+  min-height: 150px;
 }
 </style>

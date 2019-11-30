@@ -38,7 +38,8 @@ article.get('/:id', function (req, res, next) {
   // console.log(id)
   Article
     .findById(id)
-    .populate('author fans')
+    .populate('author', 'name -_id')
+    .populate('fans')
     .exec()
     .then(result => {
       // console.log(result)
@@ -56,7 +57,7 @@ article.get('/:id', function (req, res, next) {
     })
 })
 article.post('/', checkAuth, function (req, res, next) {
-  let author = req.body.author ? req.body.author : ''
+  let author = req.session.authUser._id ? req.session.authUser._id : ''
   let title = req.body.title ? req.body.title : ''
   let content = req.body.content ? req.body.content : ''
   let fans = req.body.fans ? JSON.parse(req.body.fans) : []
@@ -77,7 +78,7 @@ article.post('/', checkAuth, function (req, res, next) {
     type: type,
     tags: tags
   })
-  console.log(article)
+  // console.log(article)
   // res.end(200)
   article.save().then(result => {
     // console.log(result)
