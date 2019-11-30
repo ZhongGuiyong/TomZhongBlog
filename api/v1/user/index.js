@@ -108,7 +108,7 @@ user.post('/reg', async function(req, res, next) {
 user.post('/login', async function(req, res, next) {
   let email = req.body.email
   let pwd = req.body.pwd
-
+  console.log(req.session.authUser || {});
   try {
     const userInfo = await User.find({ email: email }).select('role name age email pwd nickname user_profile_photo').exec()
     // console.log(userInfo);
@@ -117,10 +117,17 @@ user.post('/login', async function(req, res, next) {
         message: '用户不存在或者用户密码填写错误，请重试！'
       })
     }
+    if (userInfo && userInfo.length > 0 && req.session.authUser) {
+      return res.status(200).json({
+        message: '你已经登录过了，请勿再次登录',
+        userInfo: req.session.authUser
+      })
+    }
     const compareResult = await comparePwd(pwd, userInfo[0].pwd || '') // 对比数据库存储的密码，符合数据库的hash密码，返回true
     // console.log(compareResult);
     if (compareResult) {
-      const { role, name, age, email, nickname, user_profile_photo } = (userInfo && userInfo[0]) || {};
+      const { role, name, age, email, nickname, user_profile_photo } = (userInfo && userInfo[0]) || {}
+      req.session.authUser = { name, email }
       return res.status(200).json({
         message: 'Auth successful',
         status: 'ok',

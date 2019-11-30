@@ -4,6 +4,8 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 import bodyParser from 'body-parser'
 import session from 'express-session';
+const MongoStore = require('connect-mongo')(session);
+
 import cors from '../plugins/serverPlugins/cors'
 import mongodbInitialize from '../plugins/serverPlugins/mongodb'
 import v1 from '../api'
@@ -26,8 +28,9 @@ async function start() {
   } else {
     await nuxt.ready()
   }
-  await mongodbInitialize();
+  const mongodbInstance = await mongodbInitialize();
   app.use(bodyParser.urlencoded({ extended: false }))
+  // console.log(mongodbInstance);
   app.use(bodyParser.json())
   // app.use(function (req, res) {
   //   res.setHeader('Content-Type', 'text/plain')
@@ -38,7 +41,10 @@ async function start() {
     secret: 'super-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 60000 },
+    store: new MongoStore({
+      mongooseConnection: mongodbInstance.connection
+    })
   }))
   app.use(cors)
   app.use(v1)
