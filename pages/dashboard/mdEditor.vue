@@ -2,16 +2,34 @@
   <div>
     <div>
       <b-form @submit.stop.prevent @reset="onReset" v-if="show">
-        <b-form-group id="input-group-1" label="文章标题" label-for="input-1" description="请输入您的文章标题">
-          <b-form-input id="input-1" v-model="form.title" type="text" placeholder="文章标题"></b-form-input>
+        <b-form-group
+          id="input-group-1"
+          label="文章标题"
+          label-for="input-1"
+          description="请输入您的文章标题"
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.title"
+            type="text"
+            placeholder="文章标题"
+          ></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="文章描述" label-for="input-2">
-          <b-form-input id="input-2" v-model="form.desc" placeholder="文章描述"></b-form-input>
+          <b-form-input
+            id="input-2"
+            v-model="form.desc"
+            placeholder="文章描述"
+          ></b-form-input>
         </b-form-group>
 
         <b-form-group id="input-group-3" label="文章类型" label-for="input-3">
-          <b-form-select id="input-3" v-model="form.type" :options="type"></b-form-select>
+          <b-form-select
+            id="input-3"
+            v-model="form.type"
+            :options="type"
+          ></b-form-select>
         </b-form-group>
 
         <b-form-group label="输入你想要的标签" label-for="input-3">
@@ -28,19 +46,32 @@
             <vue-tags-input
               v-model="tag"
               :tags="form.tags"
-              @tags-changed="newTags => form.tags = newTags"
+              @tags-changed="newTags => (form.tags = newTags)"
             />
           </no-ssr>
         </b-form-group>
 
-        <markdownEditor @getvalue="getValue" />
-
+        <!-- <markdownEditor @getvalue="getValue" /> -->
+        <client-only>
+          <ckeditor
+            :editor="editor"
+            v-model="form.content"
+            :config="editorConfig"
+          ></ckeditor>
+        </client-only>
         <b-form-group id="input-group-4" class="mt-3">
-          <b-form-checkbox id="checkbox-1" v-model="form.publish_status" name="checkbox-1">确认发布</b-form-checkbox>
+          <b-form-checkbox
+            id="checkbox-1"
+            v-model="form.publish_status"
+            name="checkbox-1"
+            >确认发布</b-form-checkbox
+          >
         </b-form-group>
 
         <div class="mt-3">
-          <b-button type="submit" variant="primary" @click="onSubmit">提交</b-button>
+          <b-button type="submit" variant="primary" @click="onSubmit"
+            >提交</b-button
+          >
           <b-button type="reset" variant="danger">Reset</b-button>
         </div>
       </b-form>
@@ -53,7 +84,12 @@
 </template>
 
 <script>
-import markdownEditor from '~/components/markdownEditor'
+// import markdownEditor from '~/components/markdownEditor'
+
+let ClassicEditor
+if (process.browser) {
+  ClassicEditor = require('@ckeditor/ckeditor5-build-decoupled-document')
+}
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
@@ -67,7 +103,7 @@ export default {
         tags: [],
         mdContent: '',
         parseContent: '',
-        content: ''
+        content: '<p>Content of the editor.</p>'
       },
       tag: '',
       type: [
@@ -77,17 +113,28 @@ export default {
         '人生感悟'
       ],
 
-      show: true
+      show: true,
+
+      editor: ClassicEditor || null,
+      editorData: '',
+      editorConfig: {
+        // The configuration of the editor.
+      },
     }
   },
+  mounted() {
+  },
+  destroyed() {
+  },
   components: {
-    markdownEditor
+    // // markdownEditor
+    // ClassicEditor
   },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault()
       // alert(JSON.stringify(this.form))
-      this.form.tags = this.form.tags.map((item) => item.text || '');
+      this.form.tags = this.form.tags.map(item => item.text || '')
       const token = Cookie.get('auth')
       this.$axios.setToken(token, 'Bearer', ['post', 'get'])
       const res = this.$axios.$post('/v1/article', this.form)
@@ -125,7 +172,7 @@ export default {
       this.form.mdContent = payload.val
       this.form.parseContent = payload.render
       this.form.content = payload.render
-    }
+    },
   }
 }
 </script>

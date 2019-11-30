@@ -12,6 +12,8 @@
     "post-update": "yarn upgrade --latest"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-decoupled-document": "^15.0.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/vue-fontawesome": "^0.1.6",

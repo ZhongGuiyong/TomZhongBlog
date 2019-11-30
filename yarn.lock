@@ -710,6 +710,16 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-decoupled-document@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.npm.taobao.org/@ckeditor/ckeditor5-build-decoupled-document/download/@ckeditor/ckeditor5-build-decoupled-document-15.0.0.tgz#7b9cdc7797bea3cff644ad4457d5d2912b79f7c6"
+  integrity sha1-e5zcd5e+o8/2RK1EV9XSkSt598Y=
+
+"@ckeditor/ckeditor5-vue@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@ckeditor/ckeditor5-vue/download/@ckeditor/ckeditor5-vue-1.0.0.tgz#f1c22776fa625afa8603b2156406c5673bdb1bce"
+  integrity sha1-8cIndvpiWvqGA7IVZAbFZzvbG84=
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
