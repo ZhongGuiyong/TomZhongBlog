@@ -1,5 +1,7 @@
 import express from 'express'
-import LoginRouter from './login'
+import authHandler from './auth'
+import articleHandler from './article'
+import userHandler from './user'
 // Create express router
 const router = express.Router()
 
@@ -10,6 +12,8 @@ router.get('/', function(req, res){
   })
   res.end(200)
 })
-router.use(LoginRouter);
+router.use(authHandler)
+router.use('/article', articleHandler)
+router.use('/user', userHandler)
 
 export default router
