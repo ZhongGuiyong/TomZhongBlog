@@ -4,13 +4,19 @@ import Article from '../../../models/article'
 import checkAuth from '../../../plugins/serverPlugins/checkAuth'
 const article = Router()
 
-article.get('/', function (req, res, next) {
+article.get('/', async function (req, res, next) {
   const tag = req.query.tag || ''
   const title = req.query.title || ''
   const content = req.query.content || ''
   const order = req.query.order || 'desc'
   const pageIndex = parseInt(req.query.pageIndex) || 1
-  const pageLimit = parseInt(req.query.pageLimit) || 10
+  const pageLimit = parseInt(req.query.pageLimit) || 5
+  const totalDocs = await Article.find(
+    { tags: { $elemMatch: { $regex: tag } } }
+  ).where('title').regex(title).where('content').regex(content)
+  // console.log(totalDocs)
+  // console.log(getCount)
+
   Article.find(
     { tags: { $elemMatch: { $regex: tag } } }
   )
@@ -18,10 +24,16 @@ article.get('/', function (req, res, next) {
   .where('content').regex(content)
   .skip((pageIndex - 1) * pageLimit)
   .limit(pageLimit)
+  .populate('author', 'name -_id')
+  .populate('fans')
   .exec().then(docs => {
     // console.log(docs)
     const response = {
-      count: docs.length,
+      pagination: {
+        totalDataCount: totalDocs.length, // 符合条件的总数
+        current: pageIndex, // 当前页数
+        showDataCount: pageLimit // 每页展示数量
+      },
       articles: docs.map(doc => {
         return {
           title: doc.title,
