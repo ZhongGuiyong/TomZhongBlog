@@ -17,10 +17,10 @@ import v1 from '../api'
 // const config = require('../nuxt.config.js')
 import config from '../nuxt.config'
 config.dev = !(process.env.NODE_ENV === 'production')
-console.log(__dirname);
+// console.log(__dirname);
 const baseConfig=JSON.parse(fs.readFileSync(path.resolve(__dirname,"../config.json")))
 var mac = new qiniu.auth.digest.Mac(baseConfig.AccessKey, baseConfig.SecretKey)
-console.log(mac);
+// console.log(mac);
 const options = {
   scope: baseConfig.Bucket,
   deleteAfterDays: 1,
