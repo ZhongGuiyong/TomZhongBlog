@@ -9,13 +9,15 @@ article.get('/', function (req, res, next) {
   const title = req.query.title || ''
   const content = req.query.content || ''
   const order = req.query.order || 'desc'
-  const pageIndex = req.query.page || ''
-  const pageLimit = req.query.page || 10
+  const pageIndex = parseInt(req.query.pageIndex) || 1
+  const pageLimit = parseInt(req.query.pageLimit) || 10
   Article.find(
     { tags: { $elemMatch: { $regex: tag } } }
   )
   .where('title').regex(title)
   .where('content').regex(content)
+  .skip((pageIndex - 1) * pageLimit)
+  .limit(pageLimit)
   .exec().then(docs => {
     // console.log(docs)
     const response = {
