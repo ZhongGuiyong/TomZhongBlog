@@ -4,35 +4,47 @@ import Article from '../../../models/article'
 import checkAuth from '../../../plugins/serverPlugins/checkAuth'
 const article = Router()
 
-// article.get('/', function (req, res, next) {
-//   Article.find().exec().then(docs => {
-//     // console.log(docs)
-//     const response = {
-//       count: docs.length,
-//       articles: docs.map(doc => {
-//         return {
-//           title: doc.title,
-//           content: doc.content,
-//           _id: doc._id,
-//           fans: doc.fans,
-//           request: {
-//             type: "GET",
-//             url: "http://localhost:3000/v1/article/" + doc._id
-//           }
-//         }
-//       })
-//     }
-//     res.status(200).json(response)
-//   }).catch(err => {
-//     console.log(err)
-//     res.status(500).json({
-//       error: err
-//     })
-//   })
-// })
-article.get('/', function (req, res) {
-  res.end('yeah, you are getting the article!');
+article.get('/', function (req, res, next) {
+  const tag = req.query.tag || ''
+  const title = req.query.title || ''
+  const content = req.query.content || ''
+  const order = req.query.order || 'desc'
+  const pageIndex = req.query.page || ''
+  const pageLimit = req.query.page || 10
+  Article.find(
+    { tags: { $elemMatch: { $regex: tag } } }
+  )
+  .where('title').regex(title)
+  .where('content').regex(content)
+  .exec().then(docs => {
+    // console.log(docs)
+    const response = {
+      count: docs.length,
+      articles: docs.map(doc => {
+        return {
+          title: doc.title,
+          content: doc.content,
+          _id: doc._id,
+          fans: doc.fans,
+          doc: doc,
+          request: {
+            type: "GET",
+            url: "http://localhost:3000/v1/article/" + doc._id
+          }
+        }
+      })
+    }
+    res.status(200).json(response)
+  }).catch(err => {
+    console.log(err)
+    res.status(500).json({
+      error: err
+    })
+  })
 })
+// article.get('/', function (req, res) {
+//   res.end('yeah, you are getting the article!');
+// })
 article.get('/:id', function (req, res, next) {
   let id = req.params.id
   // console.log(id)
@@ -102,8 +114,9 @@ article.put('/:id', function (req, res, next) {
     desc: req.body.desc ? req.body.desc : '',
     mdContent: req.body.mdContent ? req.body.mdContent : '',
     parseContent: req.body.parseContent ? req.body.parseContent : '',
-    tags: req.body.tags ? req.body.tags : [],
-    type: req.body.type ? req.body.type : ''
+    // tags: req.body.tags ? req.body.tags : [],
+    type: req.body.type ? req.body.type : '',
+    $push:{ "tags": req.body.tags }
   }
 
   for (var i in updateObj) {
