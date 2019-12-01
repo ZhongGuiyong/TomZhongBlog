@@ -15,6 +15,7 @@
                 <i class="metismenu-icon"></i>撰写新文章
               </a> -->
               <nuxt-link to="/dashboard/mdEditor" class="mm-active">发表新文章</nuxt-link>
+              <nuxt-link to="/dashboard/articleManage" class="mm-active">管理文章</nuxt-link>
             </li>
           </ul>
         </b-collapse>
@@ -33,7 +34,7 @@ export default {}
   position: fixed;
   top: 80px;
   width: 280px;
-  z-index: 9999;
+  z-index: 2;
 }
 .vertical-nav-menu {
   margin: 0;
