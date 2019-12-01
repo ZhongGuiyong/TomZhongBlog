@@ -106,6 +106,7 @@
           align="fill"
           size="sm"
           class="my-0"
+          @change="this.changePage"
         ></b-pagination>
       </b-col>
     </b-row>
@@ -117,8 +118,6 @@
       stacked="md"
       :items="items"
       :fields="fields"
-      :current-page="currentPage"
-      :per-page="perPage"
       :filter="filter"
       :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
@@ -126,8 +125,6 @@
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template v-slot:cell(name)="row">{{ row.value.first }} {{ row.value.last }}</template>
-
       <template v-slot:cell(actions)="row">
         <b-button
           size="sm"
@@ -138,6 +135,15 @@
           size="sm"
           @click="row.toggleDetails"
         >{{ row.detailsShowing ? 'Hide' : 'Show' }} Details</b-button>
+        <b-form-checkbox
+          class="checkbox-1"
+          @change="toggleArticleOpenStatus(row.item)" 
+          value="true"
+          :key="row.item._id"
+          unchecked-value="false"
+        >
+         是否发布
+        </b-form-checkbox>
       </template>
 
       <template v-slot:row-details="row">
@@ -161,53 +167,78 @@ export default {
   data() {
     return {
       items: [
-        {
-          isActive: true,
-          age: 40,
-          name: { first: 'Dickerson', last: 'Macdonald' }
-        },
-        { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-        {
-          isActive: false,
-          age: 9,
-          name: { first: 'Mini', last: 'Navarro' },
-          _rowVariant: 'success'
-        },
-        { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-        { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-        { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-        { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-        {
-          isActive: true,
-          age: 87,
-          name: { first: 'Larsen', last: 'Shaw' },
-          _cellVariants: { age: 'danger', isActive: 'warning' }
-        },
-        { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-        {
-          isActive: false,
-          age: 22,
-          name: { first: 'Genevieve', last: 'Wilson' }
-        },
-        { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-        { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        // {
+        //   isActive: true,
+        //   age: 40,
+        //   name: { first: 'Dickerson', last: 'Macdonald' }
+        // },
+        // { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+        // {
+        //   isActive: false,
+        //   age: 9,
+        //   name: { first: 'Mini', last: 'Navarro' },
+        //   _rowVariant: 'success'
+        // },
+        // { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+        // { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+        // { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+        // { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+        // {
+        //   isActive: true,
+        //   age: 87,
+        //   name: { first: 'Larsen', last: 'Shaw' },
+        //   _cellVariants: { age: 'danger', isActive: 'warning' }
+        // },
+        // { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+        // {
+        //   isActive: false,
+        //   age: 22,
+        //   name: { first: 'Genevieve', last: 'Wilson' }
+        // },
+        // { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+        // { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
       ],
+      // fields: [
+      //   {
+      //     key: 'name',
+      //     label: 'Person Full name',
+      //     sortable: true,
+      //     sortDirection: 'desc'
+      //   },
+      //   {
+      //     key: 'age',
+      //     label: 'Person age',
+      //     sortable: true,
+      //     class: 'text-center'
+      //   },
+      //   {
+      //     key: 'isActive',
+      //     label: 'is Active',
+      //     formatter: (value, key, item) => {
+      //       return value ? 'Yes' : 'No'
+      //     },
+      //     sortable: true,
+      //     sortByFormatted: true,
+      //     filterByFormatted: true
+      //   },
+      //   { key: 'actions', label: 'Actions' }
+      // ],
       fields: [
         {
-          key: 'name',
-          label: 'Person Full name',
+          key: 'title',
+          label: '文章标题',
           sortable: true,
           sortDirection: 'desc'
         },
         {
-          key: 'age',
-          label: 'Person age',
+          key: 'content',
+          label: '文章内容',
           sortable: true,
           class: 'text-center'
         },
         {
-          key: 'isActive',
-          label: 'is Active',
+          key: 'doc.open',
+          label: '是否开放阅读',
           formatter: (value, key, item) => {
             return value ? 'Yes' : 'No'
           },
@@ -243,16 +274,18 @@ export default {
         })
     }
   },
-  mounted() {
+  async mounted() {
     // Set the initial number of items
-    this.totalRows = this.items.length
+    // this.totalRows = this.items.length
+    await this.getArticleList(this.currentPage);
   },
   methods: {
     info(item, index, button) {
+      console.log(item, index, button)
       // this.infoModal.title = `Row index: ${index}`
       // this.infoModal.content = JSON.stringify(item, null, 2)
       // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      this.items.splice(index, 1);
+      // this.items.splice(index, 1)
     },
     resetInfoModal() {
       this.infoModal.title = ''
@@ -262,10 +295,35 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    changePage(page) {
+      console.log(page);
+      this.getArticleList(page)
+    },
+    async getArticleList(pageIndex) {
+      const article = `/v1/article?pageIndex=${pageIndex}`
+      try {
+        const res = await this.$axios.$get(article)
+        console.log(res)
+        // console.log(res)
+        const { pagination: { current, showDataCount, totalDataCount }} = res
+        const { articles } = res
+        console.log(articles)
+        this.items = articles
+        this.currentPage = current
+        this.totalRows = totalDataCount
+        // t
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+    toggleArticleOpenStatus(item, index, checkbox) {
+     console.log(arguments)
     }
+
   }
 }
 </script>
 
-<style  lang="less" scoped> 
+<style  lang="less" scoped>
 </style>
