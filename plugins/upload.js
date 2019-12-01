@@ -13,9 +13,9 @@ upload.install = function(Vue) {
     const putExtra = {
       fname: ''
     }
-    console.log(token)
-    const key = file.name
-    console.log(file)
+    // console.log(token)
+    const key = null
+    // console.log(file)
 
     return new Promise((resolve, reject) => {
       const observable = qiniu.upload(file, key, token, putExtra, config)

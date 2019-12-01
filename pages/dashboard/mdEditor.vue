@@ -243,8 +243,16 @@ export default {
             console.log(_that.$upload);
             const tokenQuery = '/api/uptoken'
             const { uptoken } = await _that.$axios.$get(tokenQuery)
+            _that.$bvToast.toast(`图片正在上传，请耐心等待`, {
+              title: '图片上传中',
+              autoHideDelay: 5000
+            })
             const { url } = await _that.$upload(file, uptoken);
             // this.$upload(file);
+             _that.$bvToast.toast(`上传完成`, {
+              title: '图片上传完成',
+              autoHideDelay: 5000
+            })
              editor.execCommand(
                 'inserthtml',
                 `<img src="${url}"/>`
