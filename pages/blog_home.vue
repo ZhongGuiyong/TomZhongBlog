@@ -143,30 +143,23 @@
               class="blog-pagination d-flex justify-content-center pt-60 pb-120"
             >
               <b-pagination
-                v-model="currentPage"
-                :total-rows="totalRows"
-                :per-page="perPage"
+                v-model="list.pagination.current"
+                :total-rows="list.pagination.totalDataCount"
+                :per-page="list.pagination.showDataCount"
+                :hide-goto-end-buttons="true"
                 class="mt-4"
-                first-text=""
-                last-text=""
-                aria-label
+                @change="changeList"
               >
-                <!-- <template v-slot:first-text
-                  ><span class="text-success">First</span></template
-                > -->
                 <template v-slot:prev-text
                   ><font-awesome-icon icon="chevron-left" class="icon"
                 /></template>
                 <template v-slot:next-text
                   ><font-awesome-icon icon="chevron-right" class="icon"
                 /></template>
-                <!-- <template v-slot:last-text
-                  ><span class="text-info">Last</span></template
-                > -->
-                <!-- <template v-slot:page="{ page, active }">
+                <template v-slot:page="{ page, active }">
                   <b v-if="active">{{ page }}</b>
                   <i v-else>{{ page }}</i>
-                </template> -->
+                </template>
               </b-pagination>
             </div>
           </div>
@@ -382,24 +375,34 @@
 import { getArticleList } from '@/utils/getInfo'
 export default {
   layout: 'default',
+  // watchQuery: true,
   data() {
     return {
       totalRows: 100,
       perPage: 10,
       currentPage: 1,
-      list: {}
+      list: {
+        articles: [],
+        pagination: {
+          totalDataCount: 0,
+          current: 1,
+          showDataCount: 5
+        }
+      }
     }
   },
   async asyncData ({ req }) {
     // console.log(req)
     const { query = {} } = req;
     const { p = 1 } = query 
-    const list = await getArticleList()
+    const list = await getArticleList(p, 5, '', '')
     // console.log(list)
     return { list: list }
   },
   methods: {
-    
+    async changeList(val) {
+      location.search = `?p=${val}`
+    }
   }
 }
 </script>
