@@ -93,23 +93,24 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 posts-list">
-            <div class="single-post row mb-40">
+            <div class="single-post row mb-40" v-for="(item,index) in list.articles" :key="index">
               <div class="col-lg-3 col-md-3 meta-details mt-30">
                 <ul class="tags mb-30">
-                  <li>
-                    <a href="#">旅行,</a>
+
+                  <li v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex">
+                    <a href="#">{{ tagItem }}</a>,
                   </li>
-                  <li>
+                  <!-- <li>
                     <a href="#">旅行,</a>
                   </li>
                   <li>
                     <a href="#">旅行</a>
-                  </li>
+                  </li> -->
                 </ul>
                 <div class="user-details row">
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="user" class="icon" />
-                    <a href="#" class="mr-10">钟大贵</a>
+                    <a href="#" class="mr-10">{{ item.doc.author && item.doc.author.name || 'unknown author' }}</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="calendar-day" class="icon" />
@@ -117,11 +118,11 @@
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="eye" class="icon" />
-                    <a href="#" class="mr-10">1.2万次被观看</a>
+                    <a href="#" class="mr-10">{{ item.read_count || item.doc.read_count || 0 }}次被观看</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="comment" class="icon" />
-                    <a href="#" class="mr-10">2万评论</a>
+                    <a href="#" class="mr-10">{{ item.comment_count || item.doc.comment_count || 0 }}次评论</a>
                   </p>
                 </div>
               </div>
@@ -130,12 +131,12 @@
                   <img class="w-100" src="/img/blog/feature-img1.jpg" alt />
                 </div>
                 <div class="posts-title">
-                  <h3 class="font-weight-bold mt-20 mb-20">旅行，是一种乐趣</h3>
+                  <h3 class="font-weight-bold mt-20 mb-20">{{ item.title || '' }}</h3>
                 </div>
                 <div class="excert">
-                  人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？
+                  {{ item.desc || '' }}
                 </div>
-                <a href="#" class="primary-btn mt-20">查看详情</a>
+                <a :href="'/v1/article/' + item._id" class="primary-btn mt-20">查看详情</a>
               </div>
             </div>
             <div
@@ -143,7 +144,7 @@
             >
               <b-pagination
                 v-model="currentPage"
-                :total-rows="rows"
+                :total-rows="totalRows"
                 :per-page="perPage"
                 class="mt-4"
                 first-text=""
@@ -378,14 +379,27 @@
   </div>
 </template>
 <script>
+import { getArticleList } from '@/utils/getInfo'
 export default {
   layout: 'default',
   data() {
     return {
-      rows: 100,
-      perPage: 5,
-      currentPage: 1
+      totalRows: 100,
+      perPage: 10,
+      currentPage: 1,
+      list: {}
     }
+  },
+  async asyncData ({ req }) {
+    // console.log(req)
+    const { query = {} } = req;
+    const { p = 1 } = query 
+    const list = await getArticleList()
+    // console.log(list)
+    return { list: list }
+  },
+  methods: {
+    
   }
 }
 </script>
@@ -399,7 +413,7 @@ export default {
   height: calc(100vh - 70px);
   background: url('/img/home-bg.jpg') center;
   background-repeat: no-repeat;
-  @media screen and (min-width: 1300px){
+  @media screen and (min-width: 1300px) {
     background-size: cover;
   }
 }

@@ -35,12 +35,19 @@ article.get('/', async function (req, res, next) {
         showDataCount: pageLimit // 每页展示数量
       },
       articles: docs.map(doc => {
+        // console.log(doc)
         return {
           title: doc.title,
           content: doc.content,
           _id: doc._id,
           fans: doc.fans,
           doc: doc,
+          desc: doc.desc,
+          tags: doc.tags,
+          read_count: doc.read_count || 0,
+          like_count: doc.like_count || 0,
+          comment_count: doc.comment_count || 0,
+          open: doc.open || false,
           request: {
             type: "GET",
             url: "http://localhost:3000/v1/article/" + doc._id
