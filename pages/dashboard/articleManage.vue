@@ -4,7 +4,7 @@
     <b-row>
       <b-col lg="6" class="my-1">
         <b-form-group
-          label="Sort"
+          label="排序类型"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
@@ -25,7 +25,7 @@
         </b-form-group>
       </b-col>
 
-      <b-col lg="6" class="my-1">
+      <!-- <b-col lg="6" class="my-1">
         <b-form-group
           label="Initial sort"
           label-cols-sm="3"
@@ -41,11 +41,12 @@
             :options="['asc', 'desc', 'last']"
           ></b-form-select>
         </b-form-group>
-      </b-col>
+      </b-col> -->
 
+      <!-- 按名称搜索文章 -->
       <b-col lg="6" class="my-1">
         <b-form-group
-          label="Filter"
+          label="标题搜索"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
@@ -54,19 +55,21 @@
         >
           <b-input-group size="sm">
             <b-form-input
-              v-model="filter"
+              v-model="title"
               type="search"
               id="filterInput"
-              placeholder="Type to Search"
+              placeholder="输入文章标题进行搜索"
+              debounce="500"
+              @update="updateResult"
             ></b-form-input>
             <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+              <b-button :disabled="!title" @click="title = '' && updateResult()">Clear</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
 
-      <b-col lg="6" class="my-1">
+      <!-- <b-col lg="6" class="my-1">
         <b-form-group
           label="Filter On"
           label-cols-sm="3"
@@ -81,11 +84,11 @@
             <b-form-checkbox value="isActive">Active</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-      </b-col>
+      </b-col> -->
 
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
-          label="Per page"
+          label="每页展示个数"
           label-cols-sm="6"
           label-cols-md="4"
           label-cols-lg="3"
@@ -94,7 +97,7 @@
           label-for="perPageSelect"
           class="mb-0"
         >
-          <b-form-select v-model="perPage" id="perPageSelect" size="sm" :options="pageOptions"></b-form-select>
+          <b-form-select v-model="perPage" id="perPageSelect" size="sm" :options="pageOptions" @change="changePageLimit"></b-form-select>
         </b-form-group>
       </b-col>
 
@@ -118,8 +121,7 @@
       stacked="md"
       :items="items"
       :fields="fields"
-      :filter="filter"
-      :filterIncludedFields="filterOn"
+      :busy.sync="isBusy"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
@@ -163,6 +165,7 @@
 </template>
 
 <script>
+import queryFormat from '@/utils/queryHandler'
 export default {
   data() {
     return {
@@ -255,13 +258,14 @@ export default {
       sortBy: '',
       sortDesc: false,
       sortDirection: 'asc',
-      filter: null,
+      title: '',
       filterOn: [],
       infoModal: {
         id: 'info-modal',
         title: '',
         content: ''
-      }
+      },
+      isBusy: false
     }
   },
   computed: {
@@ -300,11 +304,17 @@ export default {
       console.log(page);
       this.getArticleList(page)
     },
-    async getArticleList(pageIndex) {
-      const article = `/v1/article?pageIndex=${pageIndex}`
+    async getArticleList(index = 1, limit = 5, tit = '', cont = '') {
+      const pageIndex = index
+      const pageLimit = limit
+      const title = tit
+      const content = cont
+      const query = queryFormat({pageIndex, pageLimit, title, content})
+      const article = `/v1/article${query}`
+      this.isBusy = true
       try {
         const res = await this.$axios.$get(article)
-        console.log(res)
+        // console.log(res)
         // console.log(res)
         const { pagination: { current, showDataCount, totalDataCount }} = res
         const { articles } = res
@@ -312,15 +322,23 @@ export default {
         this.items = articles
         this.currentPage = current
         this.totalRows = totalDataCount
-        // t
+        this.isBusy = true
       } catch (error) {
+        this.isBusy = true
         console.log(error.response)
       }
     },
     toggleArticleOpenStatus(item, index, checkbox) {
      console.log(arguments)
+    },
+    updateResult(val) {
+      console.log(val)
+      this.getArticleList(1, this.perPage, this.title, '');
+    },
+    changePageLimit(val) {
+      console.log(val)
+      this.getArticleList(1, this.perPage, this.title, '')
     }
-
   }
 }
 </script>
