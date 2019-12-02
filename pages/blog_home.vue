@@ -7,7 +7,9 @@
         <div class="title row justify-content-center">
           <div class="text-center">
             <h1 class="text-white mb-30">有时间多看看这个世界，而不是宅着。</h1>
-            <p class="text-white mt-30">做人总是有感觉无聊和空虚的时候，那么这个时候我们为什么找一些事情来充实自己呢？</p>
+            <p class="text-white mt-30">
+              做人总是有感觉无聊和空虚的时候，那么这个时候我们为什么找一些事情来充实自己呢？
+            </p>
           </div>
         </div>
       </div>
@@ -32,7 +34,9 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
+                    <p class="text-white mt-10">
+                      每一段旅程，都是值得纪念和回忆的！
+                    </p>
                   </div>
                 </a>
               </div>
@@ -51,7 +55,9 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
+                    <p class="text-white mt-10">
+                      每一段旅程，都是值得纪念和回忆的！
+                    </p>
                   </div>
                 </a>
               </div>
@@ -70,7 +76,9 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
+                    <p class="text-white mt-10">
+                      每一段旅程，都是值得纪念和回忆的！
+                    </p>
                   </div>
                 </a>
               </div>
@@ -124,38 +132,41 @@
                 <div class="posts-title">
                   <h3 class="font-weight-bold mt-20 mb-20">旅行，是一种乐趣</h3>
                 </div>
-                <div class="excert">人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？</div>
+                <div class="excert">
+                  人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？
+                </div>
                 <a href="#" class="primary-btn mt-20">查看详情</a>
               </div>
             </div>
-            <div class="blog-pagination d-flex justify-content-center pt-60 pb-120">
-              <ul class="pagination">
-                <li>
-                  <a href="#" class="page-link">
-                    <font-awesome-icon icon="chevron-left" class="icon" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">01</a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">02</a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">03</a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">04</a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">05</a>
-                </li>
-                <li>
-                  <a href="#" class="page-link">
-                    <font-awesome-icon icon="chevron-right" class="icon" />
-                  </a>
-                </li>
-              </ul>
+            <div
+              class="blog-pagination d-flex justify-content-center pt-60 pb-120"
+            >
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                class="mt-4"
+                first-text=""
+                last-text=""
+                aria-label
+              >
+                <!-- <template v-slot:first-text
+                  ><span class="text-success">First</span></template
+                > -->
+                <template v-slot:prev-text
+                  ><font-awesome-icon icon="chevron-left" class="icon"
+                /></template>
+                <template v-slot:next-text
+                  ><font-awesome-icon icon="chevron-right" class="icon"
+                /></template>
+                <!-- <template v-slot:last-text
+                  ><span class="text-info">Last</span></template
+                > -->
+                <!-- <template v-slot:page="{ page, active }">
+                  <b v-if="active">{{ page }}</b>
+                  <i v-else>{{ page }}</i>
+                </template> -->
+              </b-pagination>
             </div>
           </div>
           <div class="col-lg-4 sidebar-widgets mb-30">
@@ -258,7 +269,9 @@
                     </a>
                   </li>
                 </ul>
-                <p>饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。</p>
+                <p>
+                  饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。
+                </p>
               </div>
               <div class="single-siderbar-widget popular-post-widget">
                 <h4 class="popular-title">最新的文章</h4>
@@ -268,7 +281,9 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp1.jpg" alt />
                       </div>
-                      <div class="details ml-10 d-flex flex-column justify-content-between">
+                      <div
+                        class="details ml-10 d-flex flex-column justify-content-between"
+                      >
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -279,7 +294,9 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp2.jpg" alt />
                       </div>
-                      <div class="details ml-10 d-flex flex-column justify-content-between">
+                      <div
+                        class="details ml-10 d-flex flex-column justify-content-between"
+                      >
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -290,7 +307,9 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp3.jpg" alt />
                       </div>
-                      <div class="details ml-10 d-flex flex-column justify-content-between">
+                      <div
+                        class="details ml-10 d-flex flex-column justify-content-between"
+                      >
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -361,16 +380,31 @@
 <script>
 export default {
   layout: 'default',
+  data() {
+    return {
+      rows: 100,
+      perPage: 5,
+      currentPage: 1
+    }
+  }
 }
 </script>
-<style>
+<style lang="less">
+.page-item.active .page-link {
+  background-color: #8490ff;
+  border-color: #eee;
+}
 /* banner */
 .banner {
   height: calc(100vh - 70px);
   background: url('/img/home-bg.jpg') center;
+  background-repeat: no-repeat;
+  @media screen and (min-width: 1300px){
+    background-size: cover;
+  }
 }
 .banner .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  /* background: rgba(0, 0, 0, 0.2); */
 }
 .banner h1 {
   margin: 0 auto;
@@ -692,4 +726,3 @@ export default {
   color: #fff;
 }
 </style>
-
