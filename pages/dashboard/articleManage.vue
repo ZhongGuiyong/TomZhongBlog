@@ -332,11 +332,11 @@ export default {
      console.log(arguments)
     },
     updateResult(val) {
-      console.log(val)
+      // console.log(val)
       this.getArticleList(1, this.perPage, this.title, '');
     },
     changePageLimit(val) {
-      console.log(val)
+      // console.log(val)
       this.getArticleList(1, this.perPage, this.title, '')
     }
   }
