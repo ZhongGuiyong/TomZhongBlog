@@ -48,7 +48,7 @@
             @ready="ready"
             @beforeInit="addCustomUI"
           />
-          <div class="preview" @click="showData" v-html="form.content" />
+          <div class="preview" @click="showData" v-html="getHtml" />
         </div>
         <b-form-group id="input-group-4" class="mt-3">
           <b-form-checkbox id="checkbox-1" v-model="form.publish_status" name="checkbox-1">确认发布</b-form-checkbox>
@@ -70,6 +70,8 @@
 <script>
 import VueUeditorWrap from 'vue-ueditor-wrap' // ES6 Module
 const Cookie = process.client ? require('js-cookie') : undefined
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-dark.css'
 export default {
   data() {
     return {
@@ -124,6 +126,21 @@ export default {
   },
   mounted() {},
   destroyed() {},
+  computed: {
+    getHtml() {
+      const val = this.form.content
+
+      // 但内容变化时，等待更新后再渲染DOM和高亮代码
+      this.$nextTick(() => {
+        let blocks = document.querySelectorAll('pre code')
+        for (let i = 0; i < blocks.length; i++) {
+          hljs.highlightBlock(blocks[i])
+        }
+      })
+      
+      return val
+    }
+  },
   components: {
     VueUeditorWrap
   },
@@ -191,9 +208,7 @@ export default {
         function(editor, uiName) {
           // 注册按钮执行时的 command 命令，使用命令默认就会带有回退操作
           editor.registerCommand(uiName, {
-            execCommand: function() {
-             
-            }
+            execCommand: function() {}
           })
           const timestrap = (+new Date()).toString(36)
           var w = 20,
@@ -229,34 +244,31 @@ export default {
             onclick: function() {
               // 这里可以不用执行命令，做你自己的操作也可
               console.log('打开文件候选框')
-              input.click();
+              input.click()
               // editor.execCommand(uiName)
             }
           })
-          console.log(btn);
+          console.log(btn)
           // btn.appendChild(form)
 
-          input.addEventListener('change', async function (event) {
+          input.addEventListener('change', async function(event) {
             if (!input.value) return
-            const file = this.files[0];
-            console.log(file);
-            console.log(_that.$upload);
+            const file = this.files[0]
+            console.log(file)
+            console.log(_that.$upload)
             const tokenQuery = '/api/uptoken'
             const { uptoken } = await _that.$axios.$get(tokenQuery)
             _that.$bvToast.toast(`图片正在上传，请耐心等待`, {
               title: '图片上传中',
               autoHideDelay: 5000
             })
-            const { url } = await _that.$upload(file, uptoken);
+            const { url } = await _that.$upload(file, uptoken)
             // this.$upload(file);
-             _that.$bvToast.toast(`上传完成`, {
+            _that.$bvToast.toast(`上传完成`, {
               title: '图片上传完成',
               autoHideDelay: 5000
             })
-             editor.execCommand(
-                'inserthtml',
-                `<img src="${url}"/>`
-              )
+            editor.execCommand('inserthtml', `<img src="${url}"/>`)
             // await upload(file)
           })
 
@@ -266,7 +278,6 @@ export default {
             if (state === -1) {
               btn.setDisabled(true)
               btn.setChecked(false)
-
             } else {
               btn.setDisabled(false)
               btn.setChecked(state)
