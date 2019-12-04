@@ -132,9 +132,11 @@ export default {
 
       // 但内容变化时，等待更新后再渲染DOM和高亮代码
       this.$nextTick(() => {
-        let blocks = document.querySelectorAll('pre code')
-        for (let i = 0; i < blocks.length; i++) {
-          hljs.highlightBlock(blocks[i])
+        if (process.client) {
+          let blocks = document.querySelectorAll('pre code')
+          for (let i = 0; i < blocks.length; i++) {
+            hljs.highlightBlock(blocks[i])
+          }
         }
       })
       
