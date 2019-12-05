@@ -9,6 +9,11 @@
         <b-form-group id="input-group-2" label="文章描述" label-for="input-2">
           <b-form-input id="input-2" v-model="form.desc" placeholder="文章描述"></b-form-input>
         </b-form-group>
+        
+        <b-form-group id="input-group-2" label="文章海报" label-for="input-2">
+           <b-form-file v-model="posterFile" class="mt-3" plain accept="image/*"></b-form-file>
+           <div class="mt-3">Selected file: {{ posterFile ? posterFile.name : '' }} <b-button @click="uploadPoster">上传</b-button></div>
+        </b-form-group>
 
         <b-form-group id="input-group-3" label="文章类型" label-for="input-3">
           <b-form-select id="input-3" v-model="form.type" :options="type"></b-form-select>
@@ -121,7 +126,10 @@ export default {
         // headers: {
         //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
         // }
-      }
+      },
+
+      posterFile: null,
+
     }
   },
   mounted() {},
@@ -292,6 +300,26 @@ export default {
         0 /* 指定添加到工具栏上的哪个位置，默认时追加到最后 */,
         editorId /* 指定这个 UI 是哪个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮 */
       )
+    }, 
+
+    // 上传海报
+    async uploadPoster() {
+      console.log(this.posterFile)
+      const file = this.posterFile
+      console.log(file)
+      console.log(this.$upload)
+      const tokenQuery = '/api/uptoken'
+      const { uptoken } = await this.$axios.$get(tokenQuery)
+      this.$bvToast.toast(`图片正在上传，请耐心等待`, {
+        title: '图片上传中',
+        autoHideDelay: 5000
+      })
+      const { url } = await this.$upload(file, uptoken);
+      console.log(url);
+      this.$bvToast.toast(`上传完成`, {
+        title: '图片上传完成',
+        autoHideDelay: 5000
+      })
     }
   }
 }
