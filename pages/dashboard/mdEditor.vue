@@ -84,6 +84,7 @@ export default {
         author: '5d3fe975e5097b17097fa118',
         title: '',
         desc: '',
+        poster: '',
         type: null,
         publish_status: false,
         tags: [],
@@ -316,6 +317,7 @@ export default {
       })
       const { url } = await this.$upload(file, uptoken);
       console.log(url);
+      this.form.poster = url;
       this.$bvToast.toast(`上传完成`, {
         title: '图片上传完成',
         autoHideDelay: 5000

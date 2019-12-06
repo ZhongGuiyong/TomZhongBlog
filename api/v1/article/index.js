@@ -95,6 +95,7 @@ article.post('/', checkAuth, function (req, res, next) {
   let content = req.body.content ? req.body.content : ''
   let fans = req.body.fans ? JSON.parse(req.body.fans) : []
   let desc = req.body.desc ? req.body.desc : ''
+  let poster = req.body.poster ? req.body.poster: ''
   let mdContent = req.body.mdContent ? req.body.mdContent : ''
   let parseContent = req.body.parseContent ? req.body.parseContent : ''
   let tags = req.body.tags ? req.body.tags : []
@@ -106,6 +107,7 @@ article.post('/', checkAuth, function (req, res, next) {
     content: content,
     fans: fans,
     desc: desc,
+    poster: poster,
     mdContent: mdContent,
     parseContent: parseContent,
     type: type,

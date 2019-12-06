@@ -5,6 +5,7 @@ const ArticleSchema = mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     title: { type: String, required: true },
     desc: { type: String },
+    poster: { type: String },
     content: { type: String, required: true },
     mdContent: { type: String },
     parseContent: { type: String },
