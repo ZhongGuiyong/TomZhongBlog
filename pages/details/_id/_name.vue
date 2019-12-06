@@ -31,6 +31,15 @@ export default {
     SideBar,
     PageNavigationArea,
     Comment
+  },
+  asyncData (context) {
+    const { params, redirect } = context
+    console.log(params)
+    const { id = 0 } = params
+    if (id === 0 ) {
+      redirect('/404')
+    }
+    return { project: 'nuxt' }
   }
 }
 </script>
