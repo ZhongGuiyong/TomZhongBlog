@@ -23,6 +23,7 @@ import Article from '@/components/Article'
 import SideBar from '@/components/SideBar'
 import PageNavigationArea from '@/components/NavigationArea'
 import Comment from '@/components/Comment'
+import { getArticleDetails } from '@/utils/getInfo'
 export default {
   layout: 'default',
   components: {
@@ -32,14 +33,25 @@ export default {
     PageNavigationArea,
     Comment
   },
-  asyncData (context) {
-    const { params, redirect } = context
-    console.log(params)
-    const { id = 0 } = params
-    if (id === 0 ) {
-      redirect('/404')
+  data() {
+    return {
+      hasContent: true,
+      content: {}
     }
-    return { project: 'nuxt' }
+  },
+  async fetch ({ store, params, redirect  }) {
+    // console.log(params)
+    const { id = 0 } = params
+    if (!id) {
+      redirect(302,'/')
+    } else {
+      try {
+        const res = await getArticleDetails(id)
+        store.commit('article/setArticle', res.data)
+      } catch (error) {
+        redirect(302,'/')
+      }
+    }
   }
 }
 </script>

@@ -1,5 +1,6 @@
 const BASE_URL = process.env.DEPLOY_ENV === 'GH_PAGES' ? `/` : '/'
 const webpack = require('webpack')
+console.log(process.env)
 export default {
   mode: 'universal',
   /*
@@ -69,7 +70,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    port: 3000
+  },
   /*
    ** Build configuration
    */
@@ -81,7 +84,8 @@ export default {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          BASE_URL: JSON.stringify(BASE_URL)
+          BASE_URL: JSON.stringify(BASE_URL),
+          NUXT_PORT: process.env.NUXT_PORT,
         }
       })
     ]

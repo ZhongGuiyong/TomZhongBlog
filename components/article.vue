@@ -21,7 +21,7 @@
         <div class="user-details row">
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="user" class="icon" />
-            <a href="#" class="mr-10">钟大贵</a>
+            <a href="#" class="mr-10">{{ article.own_name }}</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="calendar-day" class="icon" />
@@ -66,10 +66,26 @@
         </div>
       </div>
     </div>
+    {{ article }}
   </div>
 </template>
 <script>
-export default {}
+import { mapState  } from 'vuex';
+export default {
+  data() {
+    return {
+      showNavBtn: true
+    }
+  },
+  mounted() {
+    console.log(this);
+  },
+  computed:{
+    ...mapState({
+      article: state => state.article.article,
+    })
+  },
+}
 </script>
 <style scoped>
 /* post-content */
