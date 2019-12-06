@@ -4,7 +4,7 @@
     style="height: 100vh"
   >
     <form class="form-signin" @submit.prevent="login">
-      <img class="mb-4" src="/img/logo.png" alt width="72"/> 
+      <img class="mb-4" src="/img/logo.png" alt width="72" />
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         type="email"
@@ -24,12 +24,20 @@
         required
         v-model="formData.pwd"
       />
-      <div class="checkbox mb-3">
+      <!-- <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me" /> Remember me
         </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </div> -->
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+        :disabled="loginStatus"
+        style="font-size: 16px"
+      >
+        <b-spinner small label="Text Centered" v-show="loginStatus"></b-spinner>
+        {{ loginStatus ? '登录中...' : '登录' }}
+      </button>
       <p class="mt-5 mb-3 text-muted">© 2019</p>
     </form>
   </div>
@@ -38,28 +46,41 @@
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   data() {
-      return {
-        formData: {
-          email: '',
-          pwd: ''
-        }
-      }
+    return {
+      formData: {
+        email: '',
+        pwd: ''
+      },
+      loginStatus: false // 是否正在登陆
+    }
   },
   middleware: 'notAuthenticated',
   methods: {
-    
     // 登录
     async login() {
+      this.loginStatus = true
       const user = '/v1/user/login'
       try {
         const res = await this.$axios.$post(user, this.formData)
         // console.log(res)
-        console.log(res);
+        console.log(res)
         if (res.status === 'ok') {
-          console.log('登录成功');
-          window.location = window.location.origin + '/dashboard';
+          console.log('登录成功')
+          this.$bvToast.toast(`登录成功`, {
+            title: '登录成功',
+            autoHideDelay: 1000,
+            variant: 'success',
+          })
+          window.location = window.location.origin + '/dashboard'
+          this.loginStatus = false
         }
       } catch (error) {
+        this.$bvToast.toast(`请检查用户名和密码`, {
+            title: '登录失败',
+            autoHideDelay: 1000,
+            variant: 'danger',
+        })
+        this.loginStatus = false
         console.log(error.response)
       }
     }
