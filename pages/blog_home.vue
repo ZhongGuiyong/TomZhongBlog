@@ -136,7 +136,7 @@
                 <div class="excert">
                   {{ item.desc || '' }}
                 </div>
-                <a :href="'/v1/article/' + item._id" class="primary-btn mt-20">查看详情</a>
+                <a :href="'/details/' + item._id + '/' + item.title" class="primary-btn mt-20">查看详情</a>
               </div>
             </div>
             <div
