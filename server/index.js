@@ -56,7 +56,7 @@ async function start() {
     secret: 'super-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 1000 * 60 * 24 },
     store: new MongoStore({
       mongooseConnection: mongodbInstance.connection
     })

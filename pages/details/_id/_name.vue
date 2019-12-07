@@ -6,8 +6,8 @@
         <div class="row">
           <div class="col-lg-8" style="padding-top:80px;">
             <Article />
-            <PageNavigationArea />
-            <Comment />
+            <!-- <PageNavigationArea /> -->
+            <!-- <Comment /> -->
           </div>
           <div class="col-lg-4 mb-30" style="padding-top:80px;">
             <SideBar />

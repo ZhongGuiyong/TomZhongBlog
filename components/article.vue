@@ -3,50 +3,61 @@
     <div class="single-post row mb-40">
       <div class="col-lg-12">
         <div class="feature-img">
-          <img class="img-fluid" src="/img/blog/feature-img1.jpg" alt />
+          <img
+            class="img-fluid"
+            :src="
+              article.poster ? article.poster : '/img/blog/feature-img1.jpg'
+            "
+            :alt="article.title ? article.title : ''"
+            style="border: 1px solid #eee;"
+          />
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 meta-details mt-30">
-        <ul class="tags mb-30">
-          <li>
-            <a href="#">旅行,</a>
+      <div class="col-lg-3 col-md-3 meta-details mt-20">
+        <ul class="tags">
+          <li v-for="(item, index) in article.tags" :key="index" style="margin-right: 3px;">
+            <a href="#">{{ item }}</a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#">旅行,</a>
           </li>
           <li>
             <a href="#">旅行</a>
-          </li>
+          </li> -->
         </ul>
         <div class="user-details row">
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="user" class="icon" />
-            <a href="#" class="mr-10">{{ article.own_name }}</a>
+            <a href="#" class="mr-10">{{ article.author.name }}</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="calendar-day" class="icon" />
-            <a href="#" class="mr-10">2018年12月17日</a>
+            <a href="#" class="mr-10">{{ article.updateTime | formateDate }}</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="eye" class="icon" />
-            <a href="#" class="mr-10">1.2万次被观看</a>
+            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被观看</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="comment" class="icon" />
-            <a href="#" class="mr-10">2万评论</a>
+            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论</a>
           </p>
         </div>
       </div>
       <div class="col-lg-9 col-md-9">
+        <!-- 文章描述 -->
         <div class="posts-title">
-          <h3 class="font-weight-bold mt-20 mb-20">旅行，是一种乐趣</h3>
+          <h3 class="font-weight-bold mt-20 mb-20">
+            {{ article.title ? article.title : '未知标题' }}
+          </h3>
         </div>
-        <div
-          class="excert"
-        >人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？</div>
+        <!-- 文章描述 -->
+        <div class="excert">{{ article.desc || '' }}</div>
       </div>
-      <div class="col-lg-12">
-        <div
+
+      <!-- 文章内容 -->
+      <div class="col-lg-12" v-html="article.content">
+        <!-- <div
           class="quotes"
         >人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？</div>
         <div class="row mt-30 mb-30">
@@ -63,14 +74,15 @@
 					<div class="col-12">
             <img class="img-fluid" style="overflow:hidden" src="/img/blog/post-img1.jpg" alt />
           </div>
-        </div>
+        </div> -->
+        <!-- {{ article.content }} -->
       </div>
     </div>
-    {{ article }}
   </div>
 </template>
 <script>
-import { mapState  } from 'vuex';
+import { mapState } from 'vuex'
+import { getYYMMDD } from '@/utils/formatDate'
 export default {
   data() {
     return {
@@ -78,16 +90,21 @@ export default {
     }
   },
   mounted() {
-    console.log(this);
+    console.log(this)
   },
-  computed:{
+  filters: {
+    formateDate(date) {
+      return getYYMMDD(date)
+    }
+  },
+  computed: {
     ...mapState({
-      article: state => state.article.article,
+      article: state => state.article.article
     })
-  },
+  }
 }
 </script>
-<style scoped>
+<style>
 /* post-content */
 .post-content-area {
   background-color: #f9f9ff;
@@ -122,12 +139,18 @@ export default {
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
+.post-content-area img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #eee;
+}
 .post-content-area .single-post .quotes {
   margin-top: 20px;
   padding: 30px;
   background-color: white;
   box-shadow: -20.84px 21.58px 30px 0px rgba(176, 176, 176, 0.1);
 }
+
 @media screen and (min-width: 991px) {
   .post-content-area .single-post .user-details p {
     display: flex;
@@ -138,5 +161,3 @@ export default {
   }
 }
 </style>
-
-
