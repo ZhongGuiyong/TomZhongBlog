@@ -4,10 +4,19 @@
     class="text-center d-flex justify-content-center align-items-center pt-100 pb-100"
     style="height: 100vh"
   >
-    <div>{{ title }}</div>
     <form class="form-signin" @submit.prevent="login">
       <img class="mb-4" src="/img/logo.png" alt width="72" />
-      <label for="inputEmail" class="sr-only">Email address</label>
+      <label for="name" class="sr-only">Name</label>
+      <input
+        type="String"
+        id="name"
+        class="form-control"
+        placeholder="Name"
+        required
+        autofocus
+        v-model="formData.name"
+      />
+      <label for="email" class="sr-only">Email address</label>
       <input
         type="email"
         id="inputEmail"
@@ -16,6 +25,16 @@
         required
         autofocus
         v-model="formData.email"
+      />
+      <label for="age" class="sr-only">Age</label>
+      <input
+        type="String"
+        id="age"
+        class="form-control"
+        placeholder="Age"
+        required
+        autofocus
+        v-model="formData.age"
       />
       <label for="inputPassword" class="sr-only">Password</label>
       <input
@@ -45,14 +64,11 @@
 <script>
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
-  async asyncData (context) {
-    // const { data } = await axios.get(`https://my-api/posts/${params.id}`)
-    console.log(context.app.$seonow('嘎嘎', '我好帅'))
-    return { title: 'wow' }
-  },
   data() {
     return {
       formData: {
+        name: '',
+        age: '',
         email: '',
         pwd: '',
         comfirmpwd: ''
@@ -63,12 +79,12 @@ export default {
   methods: {
     // 登录
     async login() {
-      const user = 'http://localhost:3000/v1/user/login'
+      const user = `/v1/user/reg`
       try {
         const res = await this.$axios.$post(user, this.formData)
         // console.log(res)
-        this.$store.commit('setAuth', res.token)
-        Cookie.set('auth', res.token)
+        // this.$store.commit('setAuth', res.token)
+        // Cookie.set('auth', res.token)
         this.$router.push('/dashboard')
         // this.$axios.setToken(res.token, 'Bearer', ['post', 'get'])
         // const data = await this.$axios.$get('http://localhost:3000/v1/user')
@@ -76,9 +92,6 @@ export default {
       } catch (error) {
         console.log(error.response)
       }
-    },
-    head() {
-      return this.$seo('haha', 'wow')
     }
   }
 }
