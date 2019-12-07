@@ -15,7 +15,11 @@
       </div>
       <div class="col-lg-3 col-md-3 meta-details mt-20">
         <ul class="tags">
-          <li v-for="(item, index) in article.tags" :key="index" style="margin-right: 3px;">
+          <li
+            v-for="(item, index) in article.tags"
+            :key="index"
+            style="margin-right: 3px;"
+          >
             <a href="#">{{ item }}</a>
           </li>
           <!-- <li>
@@ -84,13 +88,44 @@
 import { mapState } from 'vuex'
 import { getYYMMDD } from '@/utils/formatDate'
 export default {
+  head: {
+    link: [
+      {
+        rel: 'stylesheet',
+        href:
+          '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/atom-one-dark.min.css'
+      }
+    ],
+    script: [
+      {
+        src:
+          '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js',
+        async: true,
+        defer: true
+      }
+      // {
+      //   vmid: 'ldjson-schema',
+      //   innerHTML: `console.log('gga');`,
+      //   type: 'application/javascript'
+      // }
+    ]
+    // __dangerouslyDisableSanitizersByTagID: {
+    //   'ldjson-schema': ['innerHTML']
+    // },
+  },
   data() {
     return {
       showNavBtn: true
     }
   },
   mounted() {
-    console.log(this)
+    // console.log(this)
+    window.addEventListener('load', event => {
+      console.log('Render the script')
+      document.querySelectorAll('pre code').forEach(block => {
+        hljs.highlightBlock(block)
+      })
+    })
   },
   filters: {
     formateDate(date) {
