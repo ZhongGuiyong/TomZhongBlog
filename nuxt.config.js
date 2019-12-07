@@ -1,6 +1,6 @@
 const BASE_URL = process.env.DEPLOY_ENV === 'GH_PAGES' ? `/` : '/'
 const webpack = require('webpack')
-console.log(process.env)
+// console.log(process.env)
 export default {
   mode: 'universal',
   /*
