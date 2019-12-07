@@ -7,7 +7,7 @@ seo.get('/', function(req, res, next) {
   SEO.find()
     .exec()
     .then(docs => {
-      console.log(docs)
+      // console.log(docs)
       const response = {
         seo: docs[0],
         status: 'ok'
@@ -23,7 +23,7 @@ seo.get('/', function(req, res, next) {
 })
 seo.post('/', async function(req, res, next) {''
   let seo = req.body.seoArrays || {}
-  console.log(req.body.seoArrays);
+  // console.log(req.body.seoArrays);
   let saveResult = null
   try {
     let seoDocs = await SEO.findOne()

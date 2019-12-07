@@ -2,23 +2,15 @@ export const state = () => ({
   seo: null
 })
 export const mutations = {
-  setNav(state, nav) {
-    state.nav = nav
+  setSEO(state, seo) {
+    state.seo = seo
   }
 }
 export const actions = {
-  async getSeo({ commit }) {
-    let navData = null
-    return new Promise(resolve => {
-      setTimeout(() => {
-        navData = [
-          { name: '首页', url: '/' },
-          { name: '博客', url: '/blog_home' },
-          { name: '文章后台', url: '/dashboard' }
-        ]
-        commit('setNav', navData)
-        resolve()
-      }, 0)
-    })
+  async getSEO(store) {
+    const { commit } = store;
+    let query = `/v1/seo`
+    const res = await this.$axios.$get(query)
+    commit('setSEO', res.seo)
   }
 }

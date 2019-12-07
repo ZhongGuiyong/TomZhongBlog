@@ -12,11 +12,41 @@
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 import MobileNav from '~/components/MobileNav.vue'
+import { mapState } from 'vuex'
 export default {
   components: {
     Header,
     Footer,
     MobileNav
+  },
+  computed: {
+    ...mapState({
+        seo: state => state.seo.seo
+    }),
+  },
+  head () {
+    // console.log(this.$router.history.current)
+    const seoArrays = this.seo.seoArrays
+    const routePath = this.$router.history.current.name
+    let metaInfo = {}
+    seoArrays.map(item=> {
+      // console.log(item)
+      if (item.name === routePath ) {
+        metaInfo = item.tdk
+      }
+    })
+    console.log(metaInfo)
+    return {
+      title: metaInfo.title || '',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: metaInfo.description || '',
+        }
+      ]
+    }
   }
 }
 </script>
@@ -870,7 +900,9 @@ th {
   margin-right: 0;
 }
 
-.about-banner, .skill-bar, .job-experience {
+.about-banner,
+.skill-bar,
+.job-experience {
   background: -moz-linear-gradient(0deg, #8490ff 0%, #62bdfc 100%);
   background: -webkit-linear-gradient(0deg, #8490ff 0%, #62bdfc 100%);
 }

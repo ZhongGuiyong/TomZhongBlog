@@ -16,5 +16,6 @@ export const actions = {
       // console.log(req.session.authUser)
     }
     await dispatch('nav/getNav')
+    await dispatch('seo/getSEO')
   }
 }

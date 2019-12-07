@@ -122,13 +122,12 @@
 
 <script>
 import Typed from 'typed.js'
-import { indexPage } from '../seo/index';
+// import { indexPage } from '../seo/index';
 export default {
   layout: 'default',
   components: {},
-  ...indexPage,
+  // ...indexPage,
   mounted() {
-    console.log(indexPage);
     // 使用typed.js
     new Typed('#typed-carrer', {
       strings: ['大贵', '前端工程师', '篮球爱好者', '尤克里里爱好者'],
