@@ -171,9 +171,9 @@
                   <img src="/img/blog/user-info.png" alt />
                 </div>
                 <a href="#">
-                  <h4 class="mt-40">大大大贵</h4>
+                  <h4 class="mt-40">{{ seoOption.extraMsg && seoOption.extraMsg.ownerName || ''}}</h4>
                 </a>
-                <p>一直在进步的菜鸟前端。</p>
+                <p>{{ seoOption.extraMsg && seoOption.extraMsg.desc || ''}}</p>
                 <ul class="social-links">
                   <li>
                     <a href="#">
@@ -256,7 +256,7 @@
                     </a>
                   </li>
                 </ul>
-                <p>饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。</p>
+                <p>{{ seoOption.extraMsg && seoOption.extraMsg.motto || ''}}</p>
               </div>
               <div class="single-siderbar-widget popular-post-widget">
                 <h4 class="popular-title">最新的文章</h4>
@@ -358,11 +358,13 @@
 </template>
 <script>
 import { getArticleList } from '@/utils/getInfo'
+import { mapState } from 'vuex'
 export default {
   layout: 'default',
   // watchQuery: true,
   data() {
     return {
+      name: 'blog_home',
       totalRows: 100,
       perPage: 10,
       currentPage: 1,
@@ -373,17 +375,33 @@ export default {
           current: 1,
           showDataCount: 5
         }
-      }
+      },
+      seoOption: {
+
+      },
     }
   },
-  async asyncData({ req }) {
+  async asyncData(context) {
     // console.log(req)
+    const { req = {} } = context
     const { query = {} } = req
     const { p = 1 } = query
+    const routePath = context.app.router.history.current.name
+    // console.log(context.app.router.history.current.name)
+    const seoOption = context.app.store.state && context.app.store.state.seo && context.app.store.state.seo.seo.seoArrays || {}
+    // console.log(context.app.store.state.seo.seo)
+    let seoResult = {}
+    seoOption.map(item=> {
+      // console.log(item)
+      if (item.name === routePath ) {
+        seoResult = item.tdk
+      }
+    })
     const list = await getArticleList(p, 5, '', '')
     // console.log(list)
     return {
-      list: list
+      list: list,
+      seoOption: seoResult,
     }
   },
   methods: {
