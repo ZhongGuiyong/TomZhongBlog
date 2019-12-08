@@ -3,6 +3,7 @@ import authHandler from './auth'
 import articleHandler from './article'
 import userHandler from './user'
 import seoHandler from './seo'
+import settingHandler from './setting'
 // Create express router
 const router = express.Router()
 
@@ -17,5 +18,6 @@ router.use(authHandler)
 router.use('/article', articleHandler)
 router.use('/user', userHandler)
 router.use('/seo', seoHandler)
+router.use('/setting', settingHandler)
 
 export default router

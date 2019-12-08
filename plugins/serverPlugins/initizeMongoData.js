@@ -11,6 +11,41 @@ const initlizeSetting = async () => {
   if (!setting) {
     setting = await new Setting({
       _id: new mongoose.Types.ObjectId(),
+      articleType: [ 
+        {
+          name: 'Life',
+          value: '生活',
+          desc: '每个人的生活，都是一本书',
+          imgSrc: '',
+        },
+        {
+          name: 'tech',
+          value: '技术',
+          desc: '生活有趣的基础，是工作',
+          imgSrc: '',
+        },
+        {
+          name: 'mind',
+          value: '人生感悟',
+          desc: '进步的起源，需要独立思考',
+          imgSrc: '',
+        }
+      ],
+      // 当前热门标签
+      tags: [
+        {
+          name: 'life',
+          value: '生活'
+        },
+        {
+          name: 'tech',
+          value: '技术'
+        },
+        {
+          name: 'mind',
+          value: '思考'
+        },
+      ]
     })
     saveRes = await setting.save()
     console.log(saveRes)

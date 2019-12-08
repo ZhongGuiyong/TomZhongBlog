@@ -17,5 +17,6 @@ export const actions = {
     }
     await dispatch('nav/getNav')
     await dispatch('seo/getSEO')
+    await dispatch('setting/getSetting')
   }
 }

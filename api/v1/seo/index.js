@@ -21,7 +21,7 @@ seo.get('/', function(req, res, next) {
       })
     })
 })
-seo.post('/', async function(req, res, next) {''
+seo.post('/', async function(req, res, next) {
   let seo = req.body.seoArrays || {}
   // console.log(req.body.seoArrays);
   let saveResult = null
