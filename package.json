@@ -5,7 +5,7 @@
   "author": "Zhong GuiYong",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development NUXT_PORT=3000 nodemon server/index.js --watch server --watch api --watch models --exec babel-node --presets babel-preset-env ",
+    "dev": "cross-env NODE_ENV=development NUXT_PORT=3000 nodemon server/index.js --watch server --watch api --watch models --watch plugins --exec babel-node --presets babel-preset-env ",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "generate": "nuxt generate",

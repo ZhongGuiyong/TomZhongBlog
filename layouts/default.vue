@@ -35,7 +35,7 @@ export default {
         metaInfo = item.tdk
       }
     })
-    console.log(metaInfo)
+    // console.log(metaInfo)
     return {
       title: metaInfo.title || '',
       meta: [

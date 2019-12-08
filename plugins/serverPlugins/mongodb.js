@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import initizeMongoData from './initizeMongoData'
 
 export default async () => {
   await mongoose.connect(
@@ -10,5 +11,8 @@ export default async () => {
     }
   )
   mongoose.set('createIndexes', true)
+
+  // 第一次运行时初始化数据
+  await initizeMongoData()
   return mongoose
 }
