@@ -7,9 +7,7 @@
         <div class="title row justify-content-center">
           <div class="text-center">
             <h1 class="text-white mb-30">有时间多看看这个世界，而不是宅着。</h1>
-            <p class="text-white mt-30">
-              做人总是有感觉无聊和空虚的时候，那么这个时候我们为什么找一些事情来充实自己呢？
-            </p>
+            <p class="text-white mt-30">做人总是有感觉无聊和空虚的时候，那么这个时候我们为什么找一些事情来充实自己呢？</p>
           </div>
         </div>
       </div>
@@ -34,9 +32,7 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">
-                      每一段旅程，都是值得纪念和回忆的！
-                    </p>
+                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
                   </div>
                 </a>
               </div>
@@ -55,9 +51,7 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">
-                      每一段旅程，都是值得纪念和回忆的！
-                    </p>
+                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
                   </div>
                 </a>
               </div>
@@ -76,9 +70,7 @@
                   >
                     <h4 class="text-white mb-10">旅行日子</h4>
                     <span class="border-1px ml-10 mr-10"></span>
-                    <p class="text-white mt-10">
-                      每一段旅程，都是值得纪念和回忆的！
-                    </p>
+                    <p class="text-white mt-10">每一段旅程，都是值得纪念和回忆的！</p>
                   </div>
                 </a>
               </div>
@@ -96,7 +88,6 @@
             <div class="single-post row mb-40" v-for="(item,index) in list.articles" :key="index">
               <div class="col-lg-3 col-md-3 meta-details mt-30">
                 <ul class="tags mb-30">
-
                   <li v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex">
                     <a href="#">{{ tagItem }}</a>,
                   </li>
@@ -105,12 +96,15 @@
                   </li>
                   <li>
                     <a href="#">旅行</a>
-                  </li> -->
+                  </li>-->
                 </ul>
                 <div class="user-details row">
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="user" class="icon" />
-                    <a href="#" class="mr-10">{{ item.doc.author && item.doc.author.name || 'unknown author' }}</a>
+                    <a
+                      href="#"
+                      class="mr-10"
+                    >{{ item.doc.author && item.doc.author.name || 'unknown author' }}</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="calendar-day" class="icon" />
@@ -122,7 +116,10 @@
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="comment" class="icon" />
-                    <a href="#" class="mr-10">{{ item.comment_count || item.doc.comment_count || 0 }}次评论</a>
+                    <a
+                      href="#"
+                      class="mr-10"
+                    >{{ item.comment_count || item.doc.comment_count || 0 }}次评论</a>
                   </p>
                 </div>
               </div>
@@ -133,15 +130,11 @@
                 <div class="posts-title">
                   <h3 class="font-weight-bold mt-20 mb-20">{{ item.title || '' }}</h3>
                 </div>
-                <div class="excert">
-                  {{ item.desc || '' }}
-                </div>
+                <div class="excert">{{ item.desc || '' }}</div>
                 <a :href="'/details/' + item._id + '/' + item.title" class="primary-btn mt-20">查看详情</a>
               </div>
             </div>
-            <div
-              class="blog-pagination d-flex justify-content-center pt-60 pb-120"
-            >
+            <div class="blog-pagination d-flex justify-content-center pt-60 pb-120">
               <b-pagination
                 v-model="list.pagination.current"
                 :total-rows="list.pagination.totalDataCount"
@@ -150,12 +143,12 @@
                 class="mt-4"
                 @change="changeList"
               >
-                <template v-slot:prev-text
-                  ><font-awesome-icon icon="chevron-left" class="icon"
-                /></template>
-                <template v-slot:next-text
-                  ><font-awesome-icon icon="chevron-right" class="icon"
-                /></template>
+                <template v-slot:prev-text>
+                  <font-awesome-icon icon="chevron-left" class="icon" />
+                </template>
+                <template v-slot:next-text>
+                  <font-awesome-icon icon="chevron-right" class="icon" />
+                </template>
                 <template v-slot:page="{ page, active }">
                   <b v-if="active">{{ page }}</b>
                   <i v-else>{{ page }}</i>
@@ -263,9 +256,7 @@
                     </a>
                   </li>
                 </ul>
-                <p>
-                  饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。
-                </p>
+                <p>饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。</p>
               </div>
               <div class="single-siderbar-widget popular-post-widget">
                 <h4 class="popular-title">最新的文章</h4>
@@ -275,9 +266,7 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp1.jpg" alt />
                       </div>
-                      <div
-                        class="details ml-10 d-flex flex-column justify-content-between"
-                      >
+                      <div class="details ml-10 d-flex flex-column justify-content-between">
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -288,9 +277,7 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp2.jpg" alt />
                       </div>
-                      <div
-                        class="details ml-10 d-flex flex-column justify-content-between"
-                      >
+                      <div class="details ml-10 d-flex flex-column justify-content-between">
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -301,9 +288,7 @@
                       <div class="thumb">
                         <img class="w-100" src="/img/blog/pp3.jpg" alt />
                       </div>
-                      <div
-                        class="details ml-10 d-flex flex-column justify-content-between"
-                      >
+                      <div class="details ml-10 d-flex flex-column justify-content-between">
                         <a href="#">
                           <h6>杭州走一走</h6>
                         </a>
@@ -391,13 +376,15 @@ export default {
       }
     }
   },
-  async asyncData ({ req }) {
+  async asyncData({ req }) {
     // console.log(req)
-    const { query = {} } = req;
-    const { p = 1 } = query 
+    const { query = {} } = req
+    const { p = 1 } = query
     const list = await getArticleList(p, 5, '', '')
     // console.log(list)
-    return { list: list }
+    return {
+      list: list
+    }
   },
   methods: {
     async changeList(val) {

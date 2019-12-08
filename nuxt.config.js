@@ -71,7 +71,6 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    port: 3000
   },
   /*
    ** Build configuration

@@ -1,6 +1,7 @@
 import queryFormat from '@/utils/queryHandler'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:' + process.env.NUXT_PORT;
+axios.defaults.baseURL = 'http://localhost:' + (process.env.NUXT_PORT || 3000);
+console.log('当前使用端口: ' + process.env.NUXT_PORT)
 export async function getArticleList(
   index = 1,
   limit = 5,
