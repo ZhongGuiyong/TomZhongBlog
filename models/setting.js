@@ -9,7 +9,9 @@ const SettingSchema = mongoose.Schema(
     articleType: [ 
       {
         name: { type: String, default: '' },
-        value: { type: String, default: '' }
+        value: { type: String, default: '' },
+        desc: { type: String, default: '' },
+        imgSrc: { type: String, default: '' },
       }
     ],
     // 当前热门标签

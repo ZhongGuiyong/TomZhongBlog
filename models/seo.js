@@ -8,7 +8,8 @@ const SEOSchema = mongoose.Schema(
         name: {type: String, default:'' },
         tdk: {
           title: { type: String, default: '' },
-          description: { type: String, default: '' }
+          description: { type: String, default: '' },
+          extraMsg: { type: mongoose.Schema.Types.Mixed, default: {} }
         }
       }
     ]
