@@ -9,7 +9,9 @@
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production NUXT_PORT=3000 nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "generate": "nuxt generate",
-    "post-update": "yarn upgrade --latest"
+    "post-update": "yarn upgrade --latest",
+    "docker-run": "docker-compose up",
+    "docker-stop": "docker-compose down && docker rmi tomzhongblog_app"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
