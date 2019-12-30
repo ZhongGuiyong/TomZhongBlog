@@ -13,7 +13,7 @@ export const actions = {
       setTimeout(() => {
         navData = [
           { 'name': '首页', 'url': '/' },
-          { 'name': '博客', 'url': '/blog_home'},
+          { 'name': '个人感悟', 'url': '/blog_home'},
           { 'name': '文章后台', 'url': '/dashboard'},
         ]
         commit('setNav', navData);
