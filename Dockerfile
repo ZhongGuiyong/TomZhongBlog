@@ -5,5 +5,6 @@ COPY . /usr/src/app
 # COPY package.json /usr/src/app/
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN yarn install
+RUN yarn build
 EXPOSE 3000
-CMD [ "yarn", "dev" ]
+CMD [ "yarn", "start" ]

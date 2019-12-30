@@ -43,7 +43,8 @@ async function start() {
   }
   const mongodbInstance = await mongodbInitialize();
 
-  
+  //allow OPTIONS on all resources
+  app.options('*', cors())
   app.use(bodyParser.urlencoded({ extended: false }))
   // console.log(mongodbInstance);
   app.use(bodyParser.json())
