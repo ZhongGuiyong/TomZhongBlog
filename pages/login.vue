@@ -59,7 +59,7 @@ export default {
     // 登录
     async login() {
       this.loginStatus = true
-      const user = '/v1/user/login'
+      const user = window.location.origin + '/v1/user/login'
       try {
         const res = await this.$axios.$post(user, this.formData)
         // console.log(res)
