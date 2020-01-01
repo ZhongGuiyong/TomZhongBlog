@@ -136,7 +136,7 @@
           <div class="company col-lg-12 d-flex">
             <div class="mb-20">
               <a href="http://www.kankan.com" class="link" style>
-                <img src="/img/company/kankan.png" class="d-block" alt style="max-width:120px;" />
+                <img src="/img/company/Kankan.png" class="d-block" alt style="max-width:120px;" />
               </a>
             </div>
             <div class="mb-20">
