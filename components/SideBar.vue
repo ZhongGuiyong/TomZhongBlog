@@ -99,9 +99,11 @@
       </ul>
       <p>心中所向，素履以往。</p>
     </div>
+    
     <div class="single-siderbar-widget popular-post-widget">
       <h4 class="popular-title">最新的文章</h4>
-      <div class="popular-post-list mt-30">
+      <p style="margin-top: 10px;">敬请期待</p>
+      <!-- <div class="popular-post-list mt-30">
         <ul>
           <li class="d-flex mb-20 single-post-list">
             <div class="thumb">
@@ -137,9 +139,9 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
-    <div class="single-siderbar-widget post-category-widget">
+    <!-- <div class="single-siderbar-widget post-category-widget">
       <h4 class="post-category-title">文章分类</h4>
       <div class="cat-wrapper">
         <ul class="cat-list">
@@ -163,9 +165,9 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
 
-    <div class="single-siderbar-widget tag-cloud-widget">
+    <!-- <div class="single-siderbar-widget tag-cloud-widget">
       <h4 class="tag-cloud-title">标签栏</h4>
       <div class="tag-colud-list-wrapper">
         <ul class="tag-colud-list">
@@ -189,7 +191,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
