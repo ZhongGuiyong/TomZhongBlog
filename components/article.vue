@@ -40,11 +40,11 @@
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="eye" class="icon" />
-            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被观看</a>
+            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被观看(敬请期待)</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="comment" class="icon" />
-            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论</a>
+            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论(敬请期待)</a>
           </p>
         </div>
       </div>
@@ -184,6 +184,14 @@ export default {
   padding: 30px;
   background-color: white;
   box-shadow: -20.84px 21.58px 30px 0px rgba(176, 176, 176, 0.1);
+}
+.post-content-area .excert {
+  background: #2d2d2d;
+  color: #fff;
+  padding: 10px 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media screen and (min-width: 991px) {

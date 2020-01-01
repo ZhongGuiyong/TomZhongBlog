@@ -78,7 +78,7 @@
           </div>
         </div>
       </div>
-    </section> -->
+    </section>-->
 
     <!-- Blog最新内容 -->
     <section class="post-content-area">
@@ -87,7 +87,7 @@
           <div class="col-lg-8 posts-list">
             <div class="single-post row mb-40" v-for="(item,index) in list.articles" :key="index">
               <div class="col-lg-3 col-md-3 meta-details mt-30">
-                <ul class="tags mb-30">
+                <ul class="tags">
                   <li v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex">
                     <a href="#">{{ tagItem }}</a>,
                   </li>
@@ -112,7 +112,10 @@
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="eye" class="icon" />
-                    <a href="#" class="mr-10">{{ item.view_count || item.doc.view_count || 0 }}次被观看(敬请期待)</a>
+                    <a
+                      href="#"
+                      class="mr-10"
+                    >{{ item.view_count || item.doc.view_count || 0 }}次被观看(敬请期待)</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="comment" class="icon" />
@@ -125,7 +128,11 @@
               </div>
               <div class="col-lg-9 col-md-9">
                 <div class="feature-img">
-                  <img class="w-100" :src="item.doc.poster ? item.doc.poster : '/img/blog/feature-img1.jpg'" alt />
+                  <img
+                    class="w-100"
+                    :src="item.doc.poster ? item.doc.poster : '/img/blog/feature-img1.jpg'"
+                    alt
+                  />
                 </div>
                 <div class="posts-title">
                   <h3 class="font-weight-bold mt-20 mb-20">{{ item.title || '' }}</h3>
@@ -187,9 +194,7 @@ export default {
           showDataCount: 5
         }
       },
-      seoOption: {
-
-      },
+      seoOption: {}
     }
   },
   filters: {
@@ -204,12 +209,16 @@ export default {
     const { p = 1 } = query
     const routePath = context.app.router.history.current.name
     // console.log(context.app.router.history.current.name)
-    const seoOption = context.app.store.state && context.app.store.state.seo && context.app.store.state.seo.seo.seoArrays || {}
+    const seoOption =
+      (context.app.store.state &&
+        context.app.store.state.seo &&
+        context.app.store.state.seo.seo.seoArrays) ||
+      {}
     // console.log(context.app.store.state.seo.seo)
     let seoResult = {}
-    seoOption.map(item=> {
+    seoOption.map(item => {
       // console.log(item)
-      if (item.name === routePath ) {
+      if (item.name === routePath) {
         seoResult = item.tdk
       }
     })
@@ -217,7 +226,7 @@ export default {
     // console.log(list)
     return {
       list: list,
-      seoOption: seoResult,
+      seoOption: seoResult
     }
   },
   methods: {
@@ -432,5 +441,4 @@ export default {
 .blog-pagination .page-link:active {
   outline: none;
 }
-
 </style>
