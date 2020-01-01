@@ -209,7 +209,7 @@ a:hover {
   padding: 60px;
 }
 .section-gap {
-  padding: 120px 0;
+  padding: 60px 0;
 }
 
 /**

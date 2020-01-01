@@ -4,10 +4,13 @@
       <div class="container">
         <div class="row d-flex align-items center justify-content-center">
           <div class="about-content col-lg-12 text-center">
-            <h1 class="text-white">About me</h1>
-            <p class="text-white link-nav mt-10">
-              <a href="/">Home</a> →
+            <h1 class="text-white">珍惜比争取更重要</h1>
+            <!-- <p class="text-white link-nav mt-10">
+              <a href="/"></a> →
               <a href="/about.html">About</a>
+            </p>-->
+            <p class="text-white link-nav mt-10">
+              <a href="javascript:;">只争朝夕，勿怀过去</a>
             </p>
           </div>
         </div>
@@ -24,10 +27,10 @@
             <h1 class="mb-40 font-weight-bold">个人简介</h1>
             <p>人的一生很漫长，我选择了前端工程师作为我的职业，可能会有人说我们就是一个写网页的，但是事实证明，我们能称得上工程师，业务线是不可能简单的，从H5应用，H5游戏，小程序，跨平台应用(electron), Express等等。没有人再敢说我们前端的工作是简单的。这，也是我选择前端的原因，可以说它很简单，简单到你在页面构建的时候就像在搭积木。更可以说很复杂，工程化的思想渗透到了前端的方方面面，组件化，webpack bundle打包，MVVM设计。一句话概括，前端工程师，是有艺术气息和理工气息的工程师。</p>
           </div>
-          <div class="col-lg-12 pt-60">
+          <!-- <div class="col-lg-12 pt-60">
             <p>人的一生很漫长，我选择了前端工程师作为我的职业，可能会有人说我们就是一个写网页的，但是事实证明，我们能称得上工程师，业务线是不可能简单的，从H5应用，H5游戏，小程序，跨平台应用(electron), Express等等。没有人再敢说我们前端的工作是简单的。这，也是我选择前端的原因，可以说它很简单，简单到你在页面构建的时候就像在搭积木。更可以说很复杂，工程化的思想渗透到了前端的方方面面，组件化，webpack bundle打包，MVVM设计。一句话概括，前端工程师，是有艺术气息和理工气息的工程师。</p>
             <p>人的一生很漫长，我选择了前端工程师作为我的职业，可能会有人说我们就是一个写网页的，但是事实证明，我们能称得上工程师，业务线是不可能简单的，从H5应用，H5游戏，小程序，跨平台应用(electron), Express等等。没有人再敢说我们前端的工作是简单的。这，也是我选择前端的原因，可以说它很简单，简单到你在页面构建的时候就像在搭积木。更可以说很复杂，工程化的思想渗透到了前端的方方面面，组件化，webpack bundle打包，MVVM设计。一句话概括，前端工程师，是有艺术气息和理工气息的工程师。</p>
-          </div>
+          </div>-->
         </div>
         <div class="row skillbar-wraps">
           <div class="col-lg-12 mt-30">
@@ -37,24 +40,30 @@
             <div class="single-skill">
               <p>HTML5</p>
               <div class="skill">
-                <div class="skill-bar"></div>
+                <div class="skill-bar" style="width: 90%"></div>
               </div>
             </div>
             <div class="single-skill">
-              <p>HTML5</p>
+              <p>CSS</p>
               <div class="skill">
-                <div class="skill-bar"></div>
-              </div>
-            </div>
-            <div class="single-skill">
-              <p>HTML5</p>
-              <div class="skill">
-                <div class="skill-bar"></div>
+                <div class="skill-bar" style="width: 85%"></div>
               </div>
             </div>
           </div>
           <div class="col-lg-6 skill-right">
             <div class="single-skill">
+              <p>Javascript</p>
+              <div class="skill">
+                <div class="skill-bar" style="width: 75%"></div>
+              </div>
+            </div>
+            <div class="single-skill">
+              <p>Node</p>
+              <div class="skill">
+                <div class="skill-bar" style="width: 70%"></div>
+              </div>
+            </div>
+            <!-- <div class="single-skill">
               <p>HTML5</p>
               <div class="skill">
                 <div class="skill-bar"></div>
@@ -65,13 +74,7 @@
               <div class="skill">
                 <div class="skill-bar"></div>
               </div>
-            </div>
-            <div class="single-skill">
-              <p>HTML5</p>
-              <div class="skill">
-                <div class="skill-bar"></div>
-              </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -87,43 +90,37 @@
             <div class="content text-center">
               <h4 class="pb-10">北华航天工业学院</h4>
               <p>
-                <b>时间:</b>2011-2013
+                <b>时间:</b>2013-2017
               </p>
-              <p>
-                <b>结果:</b>成功毕业，还拿到了管理学博士的职位
-              </p>
+              <p>管理学博士</p>
             </div>
           </li>
           <li>
             <div class="content text-center">
-              <h4>北华航天工业学院</h4>
+              <h4>看看技术有限科技公司</h4>
               <p>
-                <b>时间:</b>2011-2013
+                <b>时间:</b>2017-2018
               </p>
-              <p>
-                <b>结果:</b>成功毕业，还拿到了管理学博士的职位
-              </p>
+              <p>前端工程师</p>
             </div>
           </li>
           <li>
             <div class="content text-center">
-              <h4>北华航天工业学院</h4>
+              <h4>HCL科技有限公司</h4>
               <p>
-                <b>时间:</b>2011-2013
+                <b>时间:</b>2018-2019
               </p>
-              <p>
-                <b>结果:</b>成功毕业，还拿到了管理学博士的职位
-              </p>
+              <p>MSC Assistant</p>
             </div>
           </li>
           <li>
             <div class="content text-center">
-              <h4>北华航天工业学院</h4>
+              <h4>细刻科技科技有限公司</h4>
               <p>
-                <b>时间:</b>2011-2013
+                <b>时间:</b>2019-至今
               </p>
               <p>
-                <b>结果:</b>成功毕业，还拿到了管理学博士的职位
+                前端工程师
               </p>
             </div>
           </li>
@@ -143,12 +140,22 @@
               </a>
             </div>
             <div class="mb-20">
-              <a href="http://www.kankan.com" class="link">
+              <a href="https://www.hcltech.com/" class="link" style="background: #272727;" >
                 <img
-                  src="https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                  src="https://www.hcltech.com/sites/default/files/hcl_logo_white_1.png"
                   class="d-block"
                   alt
-                  style="max-width:120px;"
+                  style="max-width:120px; background: #272727;"
+                />
+              </a>
+            </div>
+             <div class="mb-20">
+              <a href="https://www.chicv.com/" class="link">
+                <img
+                  src="https://chicv.com/f815ff78c1daa88b2806aca221a18ecc.png"
+                  class="d-block"
+                  alt
+                  style="max-width:120px; "
                 />
               </a>
             </div>
@@ -212,6 +219,9 @@ export default {}
   width: 2px;
   padding-bottom: 40px;
   list-style-type: none;
+}
+.timeline ul li h4 {
+  margin-bottom: 10px;
 }
 .timeline ul li::before {
   content: '';
