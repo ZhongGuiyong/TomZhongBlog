@@ -267,7 +267,7 @@ export default {
             const file = this.files[0]
             console.log(file)
             console.log(_that.$upload)
-            const tokenQuery = '/api/uptoken'
+            const tokenQuery = window.location.origin + '/api/uptoken'
             const { uptoken } = await _that.$axios.$get(tokenQuery)
             _that.$bvToast.toast(`图片正在上传，请耐心等待`, {
               title: '图片上传中',
@@ -309,7 +309,7 @@ export default {
       const file = this.posterFile
       console.log(file)
       console.log(this.$upload)
-      const tokenQuery = '/api/uptoken'
+      const tokenQuery = window.location.origin + '/api/uptoken'
       const { uptoken } = await this.$axios.$get(tokenQuery)
       this.$bvToast.toast(`图片正在上传，请耐心等待`, {
         title: '图片上传中',
