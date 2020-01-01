@@ -108,18 +108,18 @@
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="calendar-day" class="icon" />
-                    <a href="#" class="mr-10">2018年12月17日</a>
+                    <a href="#" class="mr-10">{{ item.doc.updateTime | formateDate }}</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="eye" class="icon" />
-                    <a href="#" class="mr-10">{{ item.view_count || item.doc.view_count || 0 }}次被观看</a>
+                    <a href="#" class="mr-10">{{ item.view_count || item.doc.view_count || 0 }}次被观看(敬请期待)</a>
                   </p>
                   <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
                     <font-awesome-icon icon="comment" class="icon" />
                     <a
                       href="#"
                       class="mr-10"
-                    >{{ item.comment_count || item.doc.comment_count || 0 }}次评论</a>
+                    >{{ item.comment_count || item.doc.comment_count || 0 }}次评论(敬请期待)</a>
                   </p>
                 </div>
               </div>
@@ -166,6 +166,7 @@
 import { getArticleList } from '@/utils/getInfo'
 import { mapState } from 'vuex'
 import SiderBar from '@/components/SideBar'
+import { getYYMMDD } from '@/utils/formatDate'
 export default {
   layout: 'default',
   components: {
@@ -189,6 +190,11 @@ export default {
       seoOption: {
 
       },
+    }
+  },
+  filters: {
+    formateDate(date) {
+      return getYYMMDD(date)
     }
   },
   async asyncData(context) {
