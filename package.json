@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "post-update": "yarn upgrade --latest",
     "docker-run": "docker-compose up",
-    "docker-stop": "docker-compose down && docker rmi tomzhongblog_app"
+    "docker-stop": "docker-compose down && docker rmi tomzhongblog_app",
+    "start-by-pm2": "cross-env NODE_ENV=production NUXT_PORT=3000 && pm2 start server/index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
