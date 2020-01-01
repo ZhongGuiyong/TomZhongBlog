@@ -7,8 +7,8 @@ db.seos.update(
       seoArrays: [
         {
           tdk: {
-            title: 'Dagui | life experience share',
-            description: 'Share life experience of Dagui.'
+            title: '大贵 | 生活技术分享 | Dagui | Share insights from Dagui | Tom Zhong',
+            description: '分享生活和技术的点点滴滴。Share insights from Dagui.'
           },
           name: 'index'
         }
