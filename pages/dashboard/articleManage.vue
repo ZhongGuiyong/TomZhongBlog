@@ -310,7 +310,7 @@ export default {
       const title = tit
       const content = cont
       const query = queryFormat({pageIndex, pageLimit, title, content})
-      const article = `/v1/article${query}`
+      const article = window.location.origin + `/v1/article${query}`
       this.isBusy = true
       try {
         const res = await this.$axios.$get(article)
