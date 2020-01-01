@@ -2,7 +2,7 @@
   <div class="widget-wrap col-lg-4 sidebar-widgets mb-30" >
     <div class="single-siderbar-widget search-widget">
       <form action class="search-form clear">
-        <input type="text" placeholder="查找文章" />
+        <input type="text" placeholder="查找文章(敬请期待)" />
         <button type="submit">
           <font-awesome-icon icon="search" class="icon" />
         </button>
@@ -10,14 +10,13 @@
     </div>
     <div class="single-siderbar-widget user-info-widget text-center">
       <div class="avatar">
-        <img src="/img/blog/user-info.png" alt />
+        <img src="https://cdn.zguiyong.com/Fgp5BZq04ERoJIn-ix-Ce59deNjP" alt style="width: 100px;border-radius: 50%;" />
       </div>
-      <a href="#">
-        <h4 class="mt-40">大大大贵</h4>
+      <a href="javascript:;">
+        <h4 class="mt-40">大大大大贵</h4>
       </a>
-      <p>一直在进步的菜鸟前端。</p>
-      <ul class="social-links">
-        <li>
+      <ul class="social-links" style="margin-top: 10px;">
+        <!-- <li>
           <a href="#">
             <svg
               t="1564270973400"
@@ -56,9 +55,9 @@
               />
             </svg>
           </a>
-        </li>
+        </li> -->
         <li>
-          <a href="#">
+          <a href="https://github.com/ZhongGuiyong">
             <svg
               t="1564271333431"
               class="icon"
@@ -78,7 +77,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="https://weibo.com/jiandanxiaozi">
             <svg
               t="1564271359512"
               class="icon"
@@ -98,7 +97,7 @@
           </a>
         </li>
       </ul>
-      <p>饭可以一日不吃，觉可以一日不睡，书不可以一日不读。人不犯我，我不犯人；人若犯我，我必犯人。要做人民的先生，先做人民的学生。</p>
+      <p>心中所向，素履以往。</p>
     </div>
     <div class="single-siderbar-widget popular-post-widget">
       <h4 class="popular-title">最新的文章</h4>
