@@ -2,7 +2,7 @@
   "name": "tomzhonglife",
   "version": "1.0.0",
   "description": "Through the Nuxt.js, I build my personal site &#34;Tom Zhong&#39;s Site&#34;.If you have any advice, please feel free to contract me.",
-  "author": "Zhong GuiYong",
+  "author": "Tom Zhong",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development NUXT_PORT=3000 nodemon server/index.js --watch server --watch api --watch models --watch plugins --exec babel-node --presets babel-preset-env ",

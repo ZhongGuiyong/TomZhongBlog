@@ -15,11 +15,7 @@
       </div>
       <div class="col-lg-3 col-md-3 meta-details mt-20">
         <ul class="tags">
-          <li
-            v-for="(item, index) in article.tags"
-            :key="index"
-            style="margin-right: 3px;"
-          >
+          <li v-for="(item, index) in article.tags" :key="index" style="margin-right: 3px;">
             <a href="#">{{ item }}</a>
           </li>
           <!-- <li>
@@ -27,7 +23,7 @@
           </li>
           <li>
             <a href="#">旅行</a>
-          </li> -->
+          </li>-->
         </ul>
         <div class="user-details row">
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
@@ -51,16 +47,14 @@
       <div class="col-lg-9 col-md-9">
         <!-- 文章描述 -->
         <div class="posts-title">
-          <h3 class="font-weight-bold mt-20 mb-20">
-            {{ article.title ? article.title : '未知标题' }}
-          </h3>
+          <h3 class="font-weight-bold mt-20 mb-20">{{ article.title ? article.title : '未知标题' }}</h3>
         </div>
         <!-- 文章描述 -->
         <div class="excert">{{ article.desc || '' }}</div>
       </div>
 
       <!-- 文章内容 -->
-      <div class="col-lg-12" v-html="article.content">
+      <div class="col-lg-12 content" v-html="article.content">
         <!-- <div
           class="quotes"
         >人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？</div>
@@ -78,7 +72,7 @@
 					<div class="col-12">
             <img class="img-fluid" style="overflow:hidden" src="/img/blog/post-img1.jpg" alt />
           </div>
-        </div> -->
+        </div>-->
         <!-- {{ article.content }} -->
       </div>
     </div>
@@ -88,30 +82,42 @@
 import { mapState } from 'vuex'
 import { getYYMMDD } from '@/utils/formatDate'
 export default {
-  head: {
-    link: [
-      {
-        rel: 'stylesheet',
-        href:
-          '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/atom-one-dark.min.css'
-      }
-    ],
-    script: [
-      {
-        src:
-          '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js',
-        async: true,
-        defer: true
-      }
-      // {
-      //   vmid: 'ldjson-schema',
-      //   innerHTML: `console.log('gga');`,
-      //   type: 'application/javascript'
-      // }
-    ]
-    // __dangerouslyDisableSanitizersByTagID: {
-    //   'ldjson-schema': ['innerHTML']
-    // },
+  // 使用head方法更好处理meta标签
+  head() {
+    // console.log(this.$router.history.current)
+    const article = this.article
+    // console.log(metaInfo)
+    return {
+      title: '大贵 | 生活与技术分享 | ' + article.title || '',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: article.desc || ''
+        },
+        { charset: 'utf-8' },
+        { 'http-equiv': 'pragma', content: 'no-cache' },
+        { 'http-equiv': 'cache-control', content: 'no-cache' },
+        { 'http-equiv': 'expires', content: '0' },
+        { content: 'telephone=no', name: 'format-detection' }
+      ],
+      link: [
+        {
+          rel: 'stylesheet',
+          href:
+            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/atom-one-dark.min.css'
+        }
+      ],
+      script: [
+        {
+          src:
+            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js',
+          async: true,
+          defer: true
+        },
+      ]
+    }
   },
   data() {
     return {
@@ -190,10 +196,12 @@ export default {
   color: #fff;
   padding: 10px 10px;
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin: 30px 0;
   -webkit-font-smoothing: antialiased;
 }
-
+.post-content-area .content p {
+  font-size: 16px;
+}
 @media screen and (min-width: 991px) {
   .post-content-area .single-post .user-details p {
     display: flex;
