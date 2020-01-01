@@ -134,7 +134,7 @@
       @filtered="onFiltered"
     >
       <template v-slot:cell(actions)="row">
-        <b-button
+        <!-- <b-button
           size="sm"
           @click="info(row.item, row.index, $event.target)"
           class="mr-1"
@@ -149,8 +149,9 @@
           value="true"
           :key="row.item._id"
           unchecked-value="false"
-        >是否发布</b-form-checkbox>
-        <b-button  size="sm" @click="showDelelteArticleModal(row.item, row.index, $event.target)">删除文章</b-button>
+        >是否发布</b-form-checkbox> -->
+        <b-button size="sm" :href="'/details/' + row.item._id" target="_blank" rel="noopener noreferrer">浏览文章</b-button>
+        <b-button size="sm" @click="showDelelteArticleModal(row.item, row.index, $event.target)">删除文章</b-button>
       </template>
 
       <template v-slot:row-details="row">
