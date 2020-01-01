@@ -1,6 +1,5 @@
 //检查用户是否登录并且是否有权限
 export default async (req, res, next) => {
-  console.log(req.session);
   if (req.session.authUser && req.session.authUser.role === 0) {
     return next()
   } else {

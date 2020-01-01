@@ -12,7 +12,7 @@
         
         <b-form-group id="input-group-2" label="文章海报" label-for="input-2">
            <b-form-file v-model="posterFile" class="mt-3" plain accept="image/*"></b-form-file>
-           <div class="mt-3">Selected file: {{ posterFile ? posterFile.name : '' }} <b-button @click="uploadPoster">上传</b-button></div>
+           <div class="mt-3">Selected file: {{ posterFile ? posterFile.name : '' }} <b-button @click.stop.prevent="uploadPoster">上传</b-button></div>
         </b-form-group>
 
         <b-form-group id="input-group-3" label="文章类型" label-for="input-3">
@@ -162,7 +162,7 @@ export default {
       this.form.tags = this.form.tags.map(item => item.text || '')
       const token = Cookie.get('auth')
       this.$axios.setToken(token, 'Bearer', ['post', 'get'])
-      const res = this.$axios.$post('/v1/article', this.form)
+      const res = this.$axios.$post(window.location.origin + '/v1/article', this.form)
       // console.log(res)
       return false
     },

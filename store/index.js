@@ -10,7 +10,6 @@ export const actions = {
     //     // No valid cookie found
     //   }
     // }
-    // console.log(req.session);
     if (req.session.authUser) {
       commit("auth/setAuth", req.session.authUser)
       // console.log(req.session.authUser)
