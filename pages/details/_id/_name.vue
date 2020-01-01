@@ -3,15 +3,13 @@
     <AboutBanner />
     <section class="post-content-area">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-8" style="padding-top:80px;">
+        <div class="row" style="padding-top: 40px">
+          <div class="col-lg-8">
             <Article />
             <!-- <PageNavigationArea /> -->
             <!-- <Comment /> -->
           </div>
-          <div class="col-lg-4 mb-30" style="padding-top:80px;">
-            <SideBar />
-          </div>
+          <SideBar />
         </div>
       </div>
     </section>
