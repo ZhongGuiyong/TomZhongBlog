@@ -125,7 +125,7 @@
               </div>
               <div class="col-lg-9 col-md-9">
                 <div class="feature-img">
-                  <img class="w-100" src="/img/blog/feature-img1.jpg" alt />
+                  <img class="w-100" :src="item.doc.poster ? item.doc.poster : '/img/blog/feature-img1.jpg'" alt />
                 </div>
                 <div class="posts-title">
                   <h3 class="font-weight-bold mt-20 mb-20">{{ item.title || '' }}</h3>
