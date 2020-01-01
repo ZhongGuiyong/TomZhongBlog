@@ -44,7 +44,23 @@ export async function getArticleDetails(id) {
     return {}
   }
 }
+export async function deleteArticleById(id) {
+  if (!id) {
+    return {}
+  }
+
+  const article = `/v1/article/${id}`
+  try {
+    const res = await axios.delete(article)
+    // console.log(res);
+    return res
+  } catch (error) {
+    console.log(error)
+    return {}
+  }
+}
 export default {
   getArticleList,
-  getArticleDetails
+  getArticleDetails,
+  deleteArticleById,
 }

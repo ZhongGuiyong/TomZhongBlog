@@ -41,7 +41,7 @@
             :options="['asc', 'desc', 'last']"
           ></b-form-select>
         </b-form-group>
-      </b-col> -->
+      </b-col>-->
 
       <!-- 按名称搜索文章 -->
       <b-col lg="6" class="my-1">
@@ -84,7 +84,7 @@
             <b-form-checkbox value="isActive">Active</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-      </b-col> -->
+      </b-col>-->
 
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
@@ -97,7 +97,13 @@
           label-for="perPageSelect"
           class="mb-0"
         >
-          <b-form-select v-model="perPage" id="perPageSelect" size="sm" :options="pageOptions" @change="changePageLimit"></b-form-select>
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+            @change="changePageLimit"
+          ></b-form-select>
         </b-form-group>
       </b-col>
 
@@ -139,13 +145,12 @@
         >{{ row.detailsShowing ? 'Hide' : 'Show' }} Details</b-button>
         <b-form-checkbox
           class="checkbox-1"
-          @change="toggleArticleOpenStatus(row.item)" 
+          @change="toggleArticleOpenStatus(row.item)"
           value="true"
           :key="row.item._id"
           unchecked-value="false"
-        >
-         是否发布
-        </b-form-checkbox>
+        >是否发布</b-form-checkbox>
+        <b-button  size="sm" @click="showDelelteArticleModal(row.item, row.index, $event.target)">删除文章</b-button>
       </template>
 
       <template v-slot:row-details="row">
@@ -161,11 +166,19 @@
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
       <pre>{{ infoModal.content }}</pre>
     </b-modal>
+
+    <!-- 删除文章确认框 -->
+    <b-modal :id="deleteArticleModal.id" @ok="delelteArticleWhenClickOk">
+      <p class="my-4">是否删除文章</p>
+      <pre>{{ deleteArticleModal.content }}</pre>
+      
+    </b-modal>
   </b-container>
 </template>
 
 <script>
 import queryFormat from '@/utils/queryHandler'
+import { deleteArticleById } from '@/utils/getInfo.js'
 export default {
   data() {
     return {
@@ -265,7 +278,14 @@ export default {
         title: '',
         content: ''
       },
-      isBusy: false
+      deleteArticleModal: {
+        id: 'delete-article-modal',
+        title: '',
+        content: '',
+        article_id: '',
+        article_index: '',
+      },
+      isBusy: false,
     }
   },
   computed: {
@@ -281,19 +301,24 @@ export default {
   async mounted() {
     // Set the initial number of items
     // this.totalRows = this.items.length
-    await this.getArticleList(this.currentPage);
+    await this.getArticleList(this.currentPage)
   },
   methods: {
     info(item, index, button) {
       console.log(item, index, button)
-      // this.infoModal.title = `Row index: ${index}`
-      // this.infoModal.content = JSON.stringify(item, null, 2)
-      // this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      // this.items.splice(index, 1)
+      this.infoModal.title = `Row index: ${index}`
+      this.infoModal.content = JSON.stringify(item, null, 2)
+      this.$root.$emit('bv::show::modal', this.infoModal.id, button)
     },
     resetInfoModal() {
       this.infoModal.title = ''
       this.infoModal.content = ''
+    },
+    resetDeleteArticleModal() {
+      this.deleteArticleModal.title = ''
+      this.deleteArticleModal.content = ''
+      this.deleteArticleModal.article_id = ''
+      this.deleteArticleModal.article_index = ''
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -301,7 +326,7 @@ export default {
       this.currentPage = 1
     },
     changePage(page) {
-      console.log(page);
+      console.log(page)
       this.getArticleList(page)
     },
     async getArticleList(index = 1, limit = 5, tit = '', cont = '') {
@@ -309,14 +334,16 @@ export default {
       const pageLimit = limit
       const title = tit
       const content = cont
-      const query = queryFormat({pageIndex, pageLimit, title, content})
+      const query = queryFormat({ pageIndex, pageLimit, title, content })
       const article = window.location.origin + `/v1/article${query}`
       this.isBusy = true
       try {
         const res = await this.$axios.$get(article)
         // console.log(res)
         // console.log(res)
-        const { pagination: { current, showDataCount, totalDataCount }} = res
+        const {
+          pagination: { current, showDataCount, totalDataCount }
+        } = res
         const { articles } = res
         console.log(articles)
         this.items = articles
@@ -329,15 +356,36 @@ export default {
       }
     },
     toggleArticleOpenStatus(item, index, checkbox) {
-     console.log(arguments)
+      console.log(arguments)
     },
     updateResult(val) {
       // console.log(val)
-      this.getArticleList(1, this.perPage, this.title, '');
+      this.getArticleList(1, this.perPage, this.title, '')
     },
     changePageLimit(val) {
       // console.log(val)
       this.getArticleList(1, this.perPage, this.title, '')
+    },
+    
+    async showDelelteArticleModal(item, index, button) {
+      this.deleteArticleModal.title = `Row index: ${index}`
+      this.deleteArticleModal.content = JSON.stringify(item, null, 2)
+      this.deleteArticleModal.article_id = item._id || '';
+      this.deleteArticleModal.article_index= index;
+      this.$root.$emit('bv::show::modal', this.deleteArticleModal.id, button)
+    },
+    // 删除文章
+    async delelteArticleWhenClickOk() {
+      const res = await deleteArticleById(this.deleteArticleModal.article_id)
+      console.log(res)
+      if (res.status === 200) {
+        this.$bvToast.toast(`文章删除成功`, {
+          title: '文章删除成功',
+          autoHideDelay: 3000,
+        })
+      }
+      this.items.splice(this.deleteArticleModal.article_index, 1)
+      this.resetDeleteArticleModal()
     }
   }
 }
