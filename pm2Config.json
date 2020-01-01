@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "myblog",
+      "max_memory_restart": "300M",
+      "script": "server/index.js",
+      "instances": 1,
+      "exec_mode": "cluster",
+      "watch": "true",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "ignore_watch": ["node_modules", "logs"]
+    }
+  ]
+}
