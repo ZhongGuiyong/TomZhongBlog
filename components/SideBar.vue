@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-wrap">
+  <div class="widget-wrap col-lg-4 sidebar-widgets mb-30" >
     <div class="single-siderbar-widget search-widget">
       <form action class="search-form clear">
         <input type="text" placeholder="查找文章" />
