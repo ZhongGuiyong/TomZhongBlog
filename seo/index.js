@@ -1,6 +1,6 @@
 const indexPage = {
   head: {
-    title: "阿贵的个人主站 | Home Page | Tom Zhong' Blog",
+    title: "阿贵的个人主站 | Home Page | Tom Zhong' Life",
     meta: [
       {
         hid: 'description',

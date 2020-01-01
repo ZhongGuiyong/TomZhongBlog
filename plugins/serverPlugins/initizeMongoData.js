@@ -64,8 +64,8 @@ const initlizeSeo = async () => {
       seoArrays: [{
         name: 'index',
         tdk: {
-          title: 'My blog | blog',
-          description: 'wow'
+          title: '大贵 | 生活分享 | Dagui',
+          description: '大贵的生活和技术分享！'
         }
       }]
     })

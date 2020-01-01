@@ -49,7 +49,7 @@ export async function deleteArticleById(id) {
     return {}
   }
 
-  const article = `/v1/article/${id}`
+  const article = window.location.origin + `/v1/article/${id}`
   try {
     const res = await axios.delete(article)
     // console.log(res);
