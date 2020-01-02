@@ -12,6 +12,7 @@
     "post-update": "yarn upgrade --latest",
     "docker-run": "docker-compose up",
     "docker-stop": "docker-compose down && docker rmi tomzhongblog_app",
+    "run-mongo": "mongod --config mongod.conf",
     "start-by-pm2": "cross-env NODE_ENV=production NUXT_PORT=3000 pm2 start pm2Config.json --interpreter babel-node"
   },
   "dependencies": {
