@@ -63,7 +63,15 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
+    '@nuxtjs/google-analytics',
   ],
+  googleAnalytics: {
+    id: 'UA-144190246-1',
+    debug: {
+      enabled: true,
+      sendHitTask: true
+    },
+  },
   styleResources: {
     less: './assets/**/*.less',
   },
