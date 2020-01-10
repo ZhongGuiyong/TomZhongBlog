@@ -17,7 +17,7 @@
 </template>
 <script>
 import AboutBanner from '@/components/About_Banner'
-import Article from '@/components/Article'
+import Article from '@/components/article'
 import SideBar from '@/components/SideBar'
 import PageNavigationArea from '@/components/NavigationArea'
 import Comment from '@/components/Comment'
