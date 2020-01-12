@@ -102,44 +102,22 @@
     
     <div class="single-siderbar-widget popular-post-widget">
       <h4 class="popular-title">最新的文章</h4>
-      <p style="margin-top: 10px;">敬请期待</p>
-      <!-- <div class="popular-post-list mt-30">
+      <!-- <p style="margin-top: 10px;">敬请期待</p> -->
+      <div class="popular-post-list mt-30">
         <ul>
-          <li class="d-flex mb-20 single-post-list">
+          <li class="d-flex mb-20 single-post-list" v-for="(item, index) in this.setting.latestArticles" :key="index">
             <div class="thumb">
-              <img class="w-100" src="/img/blog/pp1.jpg" alt />
+              <img class="w-100" :src="item.poster || '/img/blog/pp2.jpg'" :alt="item.title" />
             </div>
             <div class="details ml-10 d-flex flex-column justify-content-between">
-              <a href="#">
-                <h6>杭州走一走</h6>
+              <a :href="'/details/' + item._id + '/' + item.title">
+                <h6>{{item.title || '暂无标题'}}</h6>
               </a>
-              <p class="mb-0">2小时前</p>
-            </div>
-          </li>
-          <li class="d-flex mb-20 single-post-list">
-            <div class="thumb">
-              <img class="w-100" src="/img/blog/pp2.jpg" alt />
-            </div>
-            <div class="details ml-10 d-flex flex-column justify-content-between">
-              <a href="#">
-                <h6>杭州走一走</h6>
-              </a>
-              <p class="mb-0">2小时前</p>
-            </div>
-          </li>
-          <li class="d-flex mb-20 single-post-list">
-            <div class="thumb">
-              <img class="w-100" src="/img/blog/pp3.jpg" alt />
-            </div>
-            <div class="details ml-10 d-flex flex-column justify-content-between">
-              <a href="#">
-                <h6>杭州走一走</h6>
-              </a>
-              <p class="mb-0">2小时前</p>
+              <p class="mb-0">{{item.createTime | formateDate}}</p>
             </div>
           </li>
         </ul>
-      </div> -->
+      </div>
     </div>
     <!-- <div class="single-siderbar-widget post-category-widget">
       <h4 class="post-category-title">文章分类</h4>
@@ -195,7 +173,20 @@
   </div>
 </template>
 <script>
-export default {}
+import { mapState } from 'vuex'
+import { getYYMMDD } from '@/utils/formatDate'
+export default {
+  computed: {
+    ...mapState({
+        setting: state => state.setting.setting
+    }),
+  },
+  filters: {
+    formateDate(date) {
+      return getYYMMDD(date)
+    }
+  },
+}
 </script>
 <style>
 /* sidebar widgets */
@@ -404,6 +395,12 @@ export default {}
   color: #fff;
   text-align: center;
   padding: 12px 0;
+}
+.widget-wrap .popular-post-widget .single-post-list .thumb {
+  width: 40%;
+}
+.widget-wrap .popular-post-widget .single-post-list .details {
+  width: 60%;
 }
 .widget-wrap .popular-post-widget .single-post-list .details h6 {
   font-weight: 600;

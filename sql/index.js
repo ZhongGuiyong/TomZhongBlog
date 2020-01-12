@@ -1,5 +1,6 @@
 // 更新SEO的SQL
 
+// 更新SEO
 db.seos.update(
   { _id: ObjectId('5e0c0a360f209a0a60e67ccc') },
   {
@@ -16,3 +17,6 @@ db.seos.update(
     }
   }
 )
+
+// 获取最新的文章
+db.articles.find().pretty().sort({createTime: -1}).limit(1)

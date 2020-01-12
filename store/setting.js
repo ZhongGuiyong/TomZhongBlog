@@ -10,7 +10,10 @@ export const actions = {
   async getSetting(store) {
     const { commit } = store;
     let query = `/v1/setting`
-    const res = await this.$axios.$get(query)
+    let getLatestArticles = `/v1/article/latest/5`
+    let res = await this.$axios.$get(query)
+    let latestArticles = await this.$axios.$get(getLatestArticles)
+    res['latestArticles'] = latestArticles.result
     // console.log(res)
     commit('setSetting', res)
   }

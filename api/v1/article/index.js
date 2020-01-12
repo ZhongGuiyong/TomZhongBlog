@@ -69,9 +69,24 @@ article.get('/', async function(req, res, next) {
       })
     })
 })
-// article.get('/', function (req, res) {
-//   res.end('yeah, you are getting the article!');
-// })
+article.get('/latest/:number', async function(req, res) {
+  const showNumber = parseInt(req.params.number) || 1
+  try {
+    const result = await Article.find()
+      .sort({ createTime: -1 })
+      .limit(showNumber)
+    res.send({
+      status: 0,
+      result: result
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: -1,
+      result: '获取最新文章失败！',
+      error: error
+    })
+  }
+})
 article.get('/:id', function(req, res, next) {
   let id = req.params.id
   // console.log(id)
@@ -187,7 +202,6 @@ article.delete('/:id', async (req, res, next) => {
       err: error
     })
   }
-
 })
 
 export default article
