@@ -90,7 +90,7 @@ article.get('/latest/:number', async function(req, res) {
 article.get('/:id', function(req, res, next) {
   let id = req.params.id
   // console.log(id)
-  Article.findById(id)
+  Article.findByIdAndUpdate(id, { $inc: { 'view_count': 1 }})
     .populate('author', 'name -_id')
     .populate('fans')
     .exec()

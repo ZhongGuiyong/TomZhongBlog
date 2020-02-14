@@ -36,7 +36,7 @@
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="eye" class="icon" />
-            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被观看(敬请期待)</a>
+            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被浏览</a>
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="comment" class="icon" />
