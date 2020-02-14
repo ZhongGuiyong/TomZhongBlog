@@ -1,50 +1,108 @@
 <template>
-  <div class="comments-area mb-50">
-    <h4 class="text-center mb-50">5个评论</h4>
-    <div class="comment-list-wrapper">
-      <div class="comment-list">
-        <div class="single-comment d-flex justify-content-between">
-          <div class="user d-flex justify-content-between">
-            <div class="thumb mr-20">
-              <img src="/img/blog/c1.jpg" alt />
-            </div>
-            <div class="desc">
-              <h5>
-                <a href="#">大贵</a>
-              </h5>
-              <p>2018年12月12日</p>
-              <p class="comment">永远不要轻易说再见</p>
-            </div>
-          </div>
-          <div>
-            <a href="#" class="btn-reply">快速回复</a>
-          </div>
-        </div>
-      </div>
-      <div class="comment-list left-padding">
-        <div class="single-comment d-flex justify-content-between">
-          <div class="user d-flex justify-content-between">
-            <div class="thumb mr-20">
-              <img src="/img/blog/c1.jpg" alt />
-            </div>
-            <div class="desc">
-              <h5>
-                <a href="#">大贵</a>
-              </h5>
-              <p>2018年12月12日</p>
-              <p class="comment">永远不要轻易说再见</p>
-            </div>
-          </div>
-          <div>
-            <a href="#" class="btn-reply">快速回复</a>
-          </div>
-        </div>
-      </div>
+  <div class="comments">
+    <div>
+      <h4 style="margin-bottom: 15px;">文章评论</h4>
+      <b-form @submit="onSubmit" @reset="onReset" v-if="showCommentInput">
+        <b-form-group id="input-email" label="你的邮箱" label-for="email">
+          <b-form-input
+            id="email"
+            v-model="form.email"
+            type="email"
+            required
+            placeholder="输入你的邮箱"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="input-name" label="你的昵称" label-for="name">
+          <b-form-input
+            id="name"
+            v-model="form.name"
+            required
+            placeholder="输入你的名字"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="input-comment" label="你的评论" label-for="textarea">
+          <b-form-textarea
+            id="textarea"
+            v-model="form.commentContent"
+            placeholder="输入你的评论"
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary">提交评论</b-button>
+      </b-form>
+      <b-card class="mt-3" header="评论内容预览">
+        <pre class="m-0">{{ form }}</pre>
+      </b-card>
     </div>
+
+    <!-- <div class="comments-area mb-50">
+      <h4 class="text-center mb-50">5个评论</h4>
+      <div class="comment-list-wrapper">
+        <div class="comment-list">
+          <div class="single-comment d-flex justify-content-between">
+            <div class="user d-flex justify-content-between">
+              <div class="thumb mr-20">
+                <img src="/img/blog/c1.jpg" alt />
+              </div>
+              <div class="desc">
+                <h5>
+                  <a href="#">大贵</a>
+                </h5>
+                <p>2018年12月12日</p>
+                <p class="comment">永远不要轻易说再见</p>
+              </div>
+            </div>
+            <div>
+              <a href="#" class="btn-reply">快速回复</a>
+            </div>
+          </div>
+        </div>
+        <div class="comment-list left-padding">
+          <div class="single-comment d-flex justify-content-between">
+            <div class="user d-flex justify-content-between">
+              <div class="thumb mr-20">
+                <img src="/img/blog/c1.jpg" alt />
+              </div>
+              <div class="desc">
+                <h5>
+                  <a href="#">大贵</a>
+                </h5>
+                <p>2018年12月12日</p>
+                <p class="comment">永远不要轻易说再见</p>
+              </div>
+            </div>
+            <div>
+              <a href="#" class="btn-reply">快速回复</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </template>
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      form: {
+        email: '',
+        name: '',
+        commentContent: ''
+      },
+      showCommentInput: true
+    }
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
+    }
+  }
+}
 </script>
 <style>
 .comments-area {
@@ -56,7 +114,7 @@ export default {}
 .comments-area .comment-list {
   padding-bottom: 30px;
 }
-.comments-area .single-comment h5>a{
+.comments-area .single-comment h5 > a {
   color: #222;
 }
 .comments-area .single-comment .comment {
@@ -82,5 +140,3 @@ export default {}
   padding-left: 25px;
 }
 </style>
-
-

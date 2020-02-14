@@ -7,7 +7,7 @@
           <div class="col-lg-8">
             <Article />
             <!-- <PageNavigationArea /> -->
-            <!-- <Comment /> -->
+            <Comment />
           </div>
           <SideBar />
         </div>
