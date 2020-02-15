@@ -4,6 +4,7 @@ import articleHandler from './article'
 import userHandler from './user'
 import seoHandler from './seo'
 import settingHandler from './setting'
+import captcha from './captcha'
 // Create express router
 const router = express.Router()
 
@@ -19,5 +20,6 @@ router.use('/article', articleHandler)
 router.use('/user', userHandler)
 router.use('/seo', seoHandler)
 router.use('/setting', settingHandler)
+router.use('/captcha', captcha)
 
 export default router

@@ -47,6 +47,7 @@
     "nuxt": "^2.0.0",
     "qiniu": "^7.2.2",
     "qiniu-js": "^2.5.5",
+    "svg-captcha": "^1.4.0",
     "typed.js": "^2.0.10",
     "vue-ueditor-wrap": "^2.4.1"
   },
