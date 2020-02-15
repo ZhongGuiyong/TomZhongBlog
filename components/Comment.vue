@@ -32,11 +32,26 @@
           ></b-form-textarea>
         </b-form-group>
 
+        <!-- 验证码 -->
+        <b-form-group id="input-captcha" label="验证码" label-for="captcha">
+          <b-img src="/v1/captcha/comment_captcha" fluid alt="Responsive image" class="mb-10"></b-img>
+          <b-form-input
+            id="captcha"
+            v-model="form.captcha"
+            required
+            placeholder="输入验证码"
+          ></b-form-input>
+        </b-form-group>
+
         <b-button type="submit" variant="primary">提交评论</b-button>
       </b-form>
-      <b-card class="mt-3" header="评论内容预览">
+
+
+      <b-card class="mt-3" header="评论内容预览" v-if="this.$$env.NODE_ENV === 'development'">
+        {{env}}
         <pre class="m-0">{{ form }}</pre>
       </b-card>
+
     </div>
 
     <!-- <div class="comments-area mb-50">
@@ -91,7 +106,8 @@ export default {
       form: {
         email: '',
         name: '',
-        commentContent: ''
+        commentContent: '',
+        captcha: '',
       },
       showCommentInput: true
     }
@@ -100,7 +116,18 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       alert(JSON.stringify(this.form))
+    },
+    onReset() {
+      this.data.form = {
+        email: '',
+        name: '',
+        commentContent: '',
+        captcha: '',
+      }
     }
+  },
+  mounted(){
+    // console.log(this.$$env);
   }
 }
 </script>

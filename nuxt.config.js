@@ -52,6 +52,7 @@ export default {
     { src: '@/plugins/mixin.js' },
     { src: '~/plugins/vue-tags-input', ssr: false },
     { src: '~/plugins/upload', ssr: false },
+    { src: '~/plugins/pageConfig.js' },
   ],
   /*
    ** Nuxt.js modules
@@ -94,6 +95,7 @@ export default {
         'process.env': {
           BASE_URL: JSON.stringify(BASE_URL),
           NUXT_PORT: process.env.NUXT_PORT,
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         }
       })
     ]
