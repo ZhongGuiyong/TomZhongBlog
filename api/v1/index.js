@@ -5,6 +5,7 @@ import userHandler from './user'
 import seoHandler from './seo'
 import settingHandler from './setting'
 import captcha from './captcha'
+import comment from './comment'
 // Create express router
 const router = express.Router()
 
@@ -21,5 +22,6 @@ router.use('/user', userHandler)
 router.use('/seo', seoHandler)
 router.use('/setting', settingHandler)
 router.use('/captcha', captcha)
+router.use('/comment', comment)
 
 export default router

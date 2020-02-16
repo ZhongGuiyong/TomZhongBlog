@@ -47,7 +47,7 @@
       </b-form>
 
 
-      <b-card class="mt-3" header="评论内容预览" v-if="this.$$env.NODE_ENV === 'development'">
+      <b-card class="mt-3" header="评论内容预览" v-if="env === 'development'">
         {{env}}
         <pre class="m-0">{{ form }}</pre>
       </b-card>
@@ -100,6 +100,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -109,13 +110,20 @@ export default {
         commentContent: '',
         captcha: '',
       },
+      env: this.$$env.NODE_ENV,
       showCommentInput: true
     }
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault()
-      alert(JSON.stringify(this.form))
+      // console.log(this)
+      try {
+        const res = axios.post('/v1/comment', this.form)
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
     },
     onReset() {
       this.data.form = {
