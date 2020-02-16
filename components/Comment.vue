@@ -25,7 +25,7 @@
         <b-form-group id="input-comment" label="你的评论" label-for="textarea">
           <b-form-textarea
             id="textarea"
-            v-model="form.commentContent"
+            v-model="form.content"
             placeholder="输入你的评论"
             rows="3"
             max-rows="6"
@@ -34,7 +34,7 @@
 
         <!-- 验证码 -->
         <b-form-group id="input-captcha" label="验证码" label-for="captcha">
-          <b-img src="/v1/captcha/comment_captcha" fluid alt="Responsive image" class="mb-10"></b-img>
+          <b-img src="/v1/captcha/comment_captcha" fluid alt="Responsive image" class="mb-10 captcha-img"></b-img>
           <b-form-input
             id="captcha"
             v-model="form.captcha"
@@ -101,14 +101,16 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       form: {
         email: '',
         name: '',
-        commentContent: '',
+        content: '',
         captcha: '',
+        article_id: '',
       },
       env: this.$$env.NODE_ENV,
       showCommentInput: true
@@ -116,26 +118,43 @@ export default {
   },
   methods: {
     async onSubmit(evt) {
+      const image = document.querySelector('.captcha-img')
       evt.preventDefault()
       // console.log(this)
+      this.form.article_id = this.article._id
+
       try {
-        const res = axios.post('/v1/comment', this.form)
+        const res = await axios.post('/v1/comment', this.form)
+
+        this.onReset()
         console.log(res)
+
+        this.$bvToast.toast(`添加评论成功}`, {
+          title: '评论文章成功',
+          autoHideDelay: 2000
+        })
       } catch (error) {
         console.log(error)
       }
+      image.src = `/v1/captcha/comment_captcha?${Math.random()}`
     },
     onReset() {
-      this.data.form = {
+      this.form = {
         email: '',
         name: '',
-        commentContent: '',
+        content: '',
         captcha: '',
+        article_id: '',
       }
     }
   },
   mounted(){
     // console.log(this.$$env);
+  },
+  computed: {
+    ...mapState({
+      article: state => state.article.article
+    })
   }
 }
 </script>

@@ -18,4 +18,17 @@ captcha.get('/get_all_captcha', (req, res) => {
   })
 })
 
+// 验证验证码
+export const validateCaptcha = (req, key, vlaue) => {
+  const sessionCaptcha = req.session[key] || false
+  if (!sessionCaptcha) return false
+
+  // 如果验证码没有错、清空验证码，前端重新刷新验证码
+  if (sessionCaptcha.toLowerCase() === vlaue.toLowerCase()) {
+    return true
+  }
+
+  req.session.comment_captcha = ''
+}
+
 export default captcha
