@@ -6,20 +6,31 @@
         <b-form-group id="input-email" label="你的邮箱" label-for="email">
           <b-form-input
             id="email"
+            :state="emailState"
             v-model="form.email"
             type="email"
             required
             placeholder="输入你的邮箱"
+            aria-describedby="input-live-help input-live-feedback-email"
+            trim
           ></b-form-input>
+          <b-form-invalid-feedback id="input-live-feedback-email">
+           请输入正确的邮箱
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group id="input-name" label="你的昵称" label-for="name">
           <b-form-input
             id="name"
+            :state="nameState"
             v-model="form.name"
             required
-            placeholder="输入你的名字"
+            placeholder="输入你的昵称"
+            aria-describedby="input-live-help input-live-feedback-name"
           ></b-form-input>
+          <b-form-invalid-feedback id="input-live-feedback">
+           请至少输入3个字符
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group id="input-comment" label="你的评论" label-for="textarea">
@@ -139,11 +150,21 @@ export default {
   },
   methods: {
     async onSubmit(evt) {
+      const image = document.querySelector('.captcha-img') // 获取验证码图片用以更新url
+      evt.preventDefault()
+
+      const { email, name, content, captcha } = this.form
+      if (!email || !name || !content || !captcha) {
+        this.$bvToast.toast(`请输入正确的评论内容`, {
+          title: '没有输入正确的评论内容噢亲！',
+          autoHideDelay: 2000,
+          toaster: 'b-toaster-bottom-center'
+        })
+        return
+      }
 
       this.uiControl.disableSubmitBtn = true
 
-      const image = document.querySelector('.captcha-img')
-      evt.preventDefault()
       // console.log(this)
       this.form.article_id = this.article._id
 
@@ -164,12 +185,14 @@ export default {
         if(error.message.indexOf('406') !== -1) {
           this.$bvToast.toast(`请输入正确的验证码`, {
             title: '验证码输错了亲！',
-            autoHideDelay: 2000
+            autoHideDelay: 2000,
+            toaster: 'b-toaster-bottom-center',
           })
         } else {
           this.$bvToast.toast(`服务器错误`, {
             title: '请稍后再试，亲！',
-            autoHideDelay: 2000
+            autoHideDelay: 2000,
+            toaster: 'b-toaster-bottom-center',
           })
         }
       }
@@ -217,7 +240,8 @@ export default {
       if ((page + 1) * limit > total && page * limit > total) {
         this.$bvToast.toast(`评论已经全部加载完毕`, {
           title: '没有评论可加载了亲(づ￣3￣)づ╭❤～！',
-          autoHideDelay: 2000
+          autoHideDelay: 2000,
+          toaster: 'b-toaster-bottom-center'
         })
         this.uiControl.hideLoadMoreBtn = true
         return
@@ -234,7 +258,15 @@ export default {
   computed: {
     ...mapState({
       article: state => state.article.article
-    })
+    }),
+    nameState() {
+      if (this.form.name === '') return null
+      return this.form.name.length > 2 ? true : false
+    },
+    emailState() {
+      if (this.form.email === '') return null
+      return this.form.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/) ? true : false
+    },
   }
 }
 </script>
