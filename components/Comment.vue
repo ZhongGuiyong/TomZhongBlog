@@ -80,7 +80,7 @@
           >
             <div class="user d-flex justify-content-between">
               <div class="thumb mr-20">
-                <img src="/img/blog/c1.jpg" alt style="width: 100px;height: 100px; border-radius: 50%;"/>
+                <img src="/img/blog/c1.jpg" alt style="width: 80px;height: 80px; border-radius: 50%;"/>
               </div>
               <div class="desc">
 
