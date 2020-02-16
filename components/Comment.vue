@@ -218,7 +218,7 @@ export default {
     async getCommnets(page, limit) {
       try {
         const res = await axios.get(
-          `/v1/comment/${this.article._id}?pageIndex=${page}&pageLimit=${limit}`
+          `${location.origin}/v1/comment/${this.article._id}?pageIndex=${page}&pageLimit=${limit}`
         )
         // console.log(res)
         const { pagination = null, commentArray = [] } = res.data || {}

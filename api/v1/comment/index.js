@@ -45,7 +45,6 @@ comment.post('/', async (req, res) => {
 
   // 验证验证码是否正确
   if (!validateCaptcha(req, 'comment_captcha', captcha)) {
-    // console.log('验证码通过')
     return res.status(406).json({
       code: -1,
       message: '请输入正确的验证码'
