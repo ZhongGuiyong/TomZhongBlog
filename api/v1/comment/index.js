@@ -6,7 +6,7 @@ const comment = Router()
 
 
 comment.get('/:article_id', async (req, res) => {
-  console.log(req.param)
+  // console.log(req.param)
   const { article_id = 0 } =  req.params
   const { pageIndex = 1, pageLimit = 5} = req.query || {}
 
@@ -15,20 +15,28 @@ comment.get('/:article_id', async (req, res) => {
     message: '没有获取到文章的id'
   })
 
+  // 所有评论个数
+  const totalComment = await Comment.find({ article_id: article_id })
+
   const result = await Comment.find({article_id: article_id})
+                              .sort({ createdAt: -1 })
                               .skip((Number(pageIndex - 1)) * pageLimit)
                               .limit(Number(pageLimit))
-  console.log(result)
+  // console.log(result)
   res.json({
     code: 0,
-    commentArray: result
+    commentArray: result,
+    pagination: {
+      page: Number(pageIndex),
+      limit: Number(pageLimit),
+      total: totalComment.length || 0
+    }
   })
 })
 
 // 插入评论
 comment.post('/', (req, res) => {
   const { name, email, content, article_id, captcha } = req.body || {}
-  let revlidate = false
   if (!validateCaptcha(req, 'comment_captcha', captcha)) {
     // console.log('验证码通过')
     return res.status(406).json({
@@ -43,13 +51,15 @@ comment.post('/', (req, res) => {
     email: email,
     content: content
   })
+
+  // 保存新的评论
   newComment
     .save()
     .then(result => {
       // console.log(result)
       res.status(201).json({
         message: 'Handling Create Comment.(创建评论成功)',
-        createArticle: result
+        result: result
       })
     })
     .catch(err => {
