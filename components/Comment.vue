@@ -178,7 +178,9 @@ export default {
           title: '评论文章成功',
           autoHideDelay: 2000
         })
-        console.log(res.data.result);
+        this.$store.commit('article/updateArticle', { commentCount: 1 })
+        this.pagination.total += 1
+        // console.log(res.data.result);
         // 创建结果直接插入评论第一条
         this.commentArr.unshift(res.data.result)
       } catch (error) {

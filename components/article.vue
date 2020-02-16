@@ -40,7 +40,7 @@
           </p>
           <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
             <font-awesome-icon icon="comment" class="icon" />
-            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论(敬请期待)</a>
+            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论</a>
           </p>
         </div>
       </div>
@@ -142,7 +142,7 @@ export default {
     ...mapState({
       article: state => state.article.article
     })
-  }
+  },
 }
 </script>
 <style>
