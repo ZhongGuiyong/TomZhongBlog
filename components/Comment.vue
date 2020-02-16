@@ -74,19 +74,20 @@
       <div class="comment-list-wrapper">
         <div class="comment-list">
           <div
-            class="single-comment d-flex justify-content-between"
+            class="single-comment d-flex justify-content-between align-items-center mb-20"
             v-for="(item, index) in commentArr"
             :key="index"
           >
             <div class="user d-flex justify-content-between">
               <div class="thumb mr-20">
-                <img src="/img/blog/c1.jpg" alt />
+                <img src="/img/blog/c1.jpg" alt style="width: 100px;height: 100px; border-radius: 50%;"/>
               </div>
               <div class="desc">
+
                 <h5>
-                  <a href="#">{{ item.name || '匿名用户' }}</a>
+                  <a href="javascript:;" style="font-size: 24px; font-weight: bold;">{{ item.name || '匿名用户' }}</a>
                 </h5>
-                <p>2018年12月12日</p>
+                <p>{{ item.createdAt | formateDate}}</p>
                 <p class="comment">{{ item.content }}</p>
               </div>
             </div>
@@ -124,6 +125,7 @@
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
+import { getYYMMDD } from '@/utils/formatDate'
 export default {
   data() {
     return {
@@ -269,7 +271,12 @@ export default {
       if (this.form.email === '') return null
       return this.form.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/) ? true : false
     },
-  }
+  },
+  filters: {
+    formateDate(date) {
+      return getYYMMDD(date)
+    }
+  },
 }
 </script>
 <style>

@@ -1,4 +1,4 @@
-<template>
+g<template>
   <div>
     <!-- Banner图 -->
     <section class="banner d-flex align-items-center">
@@ -122,7 +122,7 @@
                     <a
                       href="#"
                       class="mr-10"
-                    >{{ item.comment_count || item.doc.comment_count || 0 }}次评论(敬请期待)</a>
+                    >{{ item.comment_count || item.doc.comment_count || 0 }}次评论</a>
                   </p>
                 </div>
               </div>
