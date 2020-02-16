@@ -7,7 +7,9 @@ export default async () => {
     'mongodb://localhost/zguiyong',
     {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
     }
   )
   mongoose.set('createIndexes', true)

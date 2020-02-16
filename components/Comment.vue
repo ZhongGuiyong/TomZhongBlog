@@ -171,7 +171,7 @@ export default {
       this.form.article_id = this.article._id
 
       try {
-        const res = await axios.post('/v1/comment', this.form)
+        const res = await axios.post(`${location.origin}/v1/comment`, this.form)
 
         this.onReset()
         // console.log(res)
