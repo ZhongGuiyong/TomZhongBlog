@@ -129,7 +129,7 @@ export default {
         this.onReset()
         console.log(res)
 
-        this.$bvToast.toast(`添加评论成功}`, {
+        this.$bvToast.toast(`添加评论成功`, {
           title: '评论文章成功',
           autoHideDelay: 2000
         })
