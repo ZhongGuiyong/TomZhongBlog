@@ -113,7 +113,11 @@ export default {
         article_id: '',
       },
       env: this.$$env.NODE_ENV,
-      showCommentInput: true
+      showCommentInput: true,
+      commentsPagenation: {
+        page: 1,
+        limit: 10,
+      }
     }
   },
   methods: {
@@ -146,10 +150,19 @@ export default {
         captcha: '',
         article_id: '',
       }
+    },
+    // 加载评论
+    async getCommnets(page, limit) {
+      try {
+        const res = await axios.get(`/v1/comment/${this.article._id}?pageIndex=${page}&pageLimit=${limit}`)
+        console.log(res)
+      } catch (error) {
+        alert(error)
+      }
     }
   },
-  mounted(){
-    // console.log(this.$$env);
+  async mounted (){
+    this.getCommnets(1, 3)
   },
   computed: {
     ...mapState({

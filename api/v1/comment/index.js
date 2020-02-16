@@ -4,6 +4,27 @@ import Comment from '../../../models/comment'
 import { validateCaptcha } from '../captcha/index'
 const comment = Router()
 
+
+comment.get('/:article_id', async (req, res) => {
+  console.log(req.param)
+  const { article_id = 0 } =  req.params
+  const { pageIndex = 1, pageLimit = 5} = req.query || {}
+
+  if (!article_id) return res.status(406).json({
+    code: -1,
+    message: '没有获取到文章的id'
+  })
+
+  const result = await Comment.find({article_id: article_id})
+                              .skip((Number(pageIndex - 1)) * pageLimit)
+                              .limit(Number(pageLimit))
+  console.log(result)
+  res.json({
+    code: 0,
+    commentArray: result
+  })
+})
+
 // 插入评论
 comment.post('/', (req, res) => {
   const { name, email, content, article_id, captcha } = req.body || {}
