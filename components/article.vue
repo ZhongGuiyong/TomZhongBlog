@@ -1,6 +1,8 @@
 <template>
   <div class="post-content-area">
-    <div class="single-post row mb-40">
+    <div class="single-post row">
+
+      <!-- 文章封面图 -->
       <div class="col-lg-12">
         <div class="feature-img">
           <img
@@ -13,68 +15,57 @@
           />
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 meta-details mt-20">
-        <ul class="tags">
-          <li v-for="(item, index) in article.tags" :key="index" style="margin-right: 3px;">
-            <a href="#">{{ item }}</a>
-          </li>
-          <!-- <li>
-            <a href="#">旅行,</a>
-          </li>
-          <li>
-            <a href="#">旅行</a>
-          </li>-->
-        </ul>
+
+      <!-- 文章标题 -->
+      <div class="col-lg-12 col-md-12 mt-20 mb-20">
+        <div class="posts-title">
+          <h3 class="font-weight-bold">{{ article.title ? article.title : '未知标题' }}</h3>
+        </div>
+      </div>
+
+      <!-- 文章相关信息 -->
+      <div class="col-lg-12 col-md-12 meta-details">
+        <div class="article-tags d-flex flex-row align-items-center mb-30">
+          <font-awesome-icon icon="tag" class="icon mr-10"/>
+          <ul class="tags">
+            <li v-for="(item, index) in article.tags" :key="index" style="margin-right: 3px;">
+              <a href="#">{{ item }}</a>
+            </li>
+            <!-- <li>
+              <a href="#">旅行,</a>
+            </li>
+            <li>
+              <a href="#">旅行</a>
+            </li>-->
+          </ul>
+        </div>
         <div class="user-details row">
-          <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
+          <p class="user-name col-lg-3 col-md-3 col-6 mb-10">
             <font-awesome-icon icon="user" class="icon" />
-            <a href="#" class="mr-10">{{ article.author.name }}</a>
+            <a href="#" class="ml-10">{{ article.author.name }}</a>
           </p>
-          <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
+          <p class="user-name col-lg-3 col-md-3 col-6 mb-10">
             <font-awesome-icon icon="calendar-day" class="icon" />
-            <a href="#" class="mr-10">{{ article.updateTime | formateDate }}</a>
+            <a href="#" class="ml-10">{{ article.updateTime | formateDate }}</a>
           </p>
-          <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
+          <p class="user-name col-lg-3 col-md-3 col-6 mb-10">
             <font-awesome-icon icon="eye" class="icon" />
-            <a href="#" class="mr-10">{{ article.view_count || 0 }}次被浏览</a>
+            <a href="#" class="ml-10">{{ article.view_count || 0 }}次被浏览</a>
           </p>
-          <p class="user-name col-lg-12 col-md-12 col-6 mb-10">
+          <p class="user-name col-lg-3 col-md-3 col-6 mb-10">
             <font-awesome-icon icon="comment" class="icon" />
-            <a href="#" class="mr-10">{{ article.comment_count || 0 }}次评论</a>
+            <a href="#" class="ml-10">{{ article.comment_count || 0 }}次评论</a>
           </p>
         </div>
       </div>
-      <div class="col-lg-9 col-md-9">
-        <!-- 文章描述 -->
-        <div class="posts-title">
-          <h3 class="font-weight-bold mt-20 mb-20">{{ article.title ? article.title : '未知标题' }}</h3>
-        </div>
-        <!-- 文章描述 -->
+
+      <!-- 文章描述 -->
+      <div class="col-lg-12 col-md-12">
         <div class="excert">{{ article.desc || '' }}</div>
       </div>
 
       <!-- 文章内容 -->
-      <div class="col-lg-12 content" v-html="article.content">
-        <!-- <div
-          class="quotes"
-        >人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？人生本来就很短暂，如果不能好好地为自己活一把，那么或者又有什么意义呢？</div>
-        <div class="row mt-30 mb-30">
-          <div class="col-6">
-            <img class="img-fluid" style="overflow:hidden" src="/img/blog/post-img1.jpg" alt />
-          </div>
-          <div class="col-6">
-            <img class="img-fluid" style="overflow:hidden" src="/img/blog/post-img2.jpg" alt />
-          </div>
-          <div class="col-lg-12 mt-30">
-            <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>
-            <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.</p>
-          </div>
-					<div class="col-12">
-            <img class="img-fluid" style="overflow:hidden" src="/img/blog/post-img1.jpg" alt />
-          </div>
-        </div>-->
-        <!-- {{ article.content }} -->
-      </div>
+      <div class="col-lg-12 content" v-html="article.content"></div>
     </div>
   </div>
 </template>
@@ -149,23 +140,22 @@ export default {
 /* post-content */
 .post-content-area {
   background-color: #f9f9ff;
-  padding-bottom: 80px;
+  /* padding-bottom: 80px; */
 }
 .post-content-area .single-post a:hover {
   color: #8490ff;
 }
 .post-content-area .single-post .meta-details {
   text-align: left;
-  margin-top: 35px;
 }
 @media screen and (min-width: 991px) {
   .post-content-area .single-post .meta-details {
-    text-align: right;
+    /* text-align: right; */
   }
 }
-.post-content-area .single-post .meta-details .tags {
+/* .post-content-area .single-post .meta-details .tags {
   font-size: 0;
-}
+} */
 .post-content-area .single-post .meta-details .tags li {
   display: inline-block;
   font-size: 14px;
@@ -196,7 +186,7 @@ export default {
   color: #fff;
   padding: 10px 10px;
   border-radius: 3px;
-  margin: 30px 0;
+  margin: 10px 0 30px 0;
   -webkit-font-smoothing: antialiased;
 }
 .post-content-area .content p {
@@ -205,10 +195,10 @@ export default {
 @media screen and (min-width: 991px) {
   .post-content-area .single-post .user-details p {
     display: flex;
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
     justify-content: flex-start;
     align-items: center;
-    text-align: right;
+    /* text-align: right; */
   }
 }
 </style>
